@@ -7,8 +7,8 @@ radius = 0.25
 height = 1.0
 
 [sub_resource type="StandardMaterial3D" id="Mat_body"]
-albedo_color = Color(0.55, 0.45, 0.35, 1)
-roughness = 0.9
+albedo_color = Color(0.68, 0.5, 0.38, 1)
+roughness = 0.85
 
 [node name="Villager" type="Node3D"]
 script = ExtResource("1_villager")
