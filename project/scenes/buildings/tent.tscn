@@ -5,3 +5,4 @@
 [node name="Tent" type="Node3D"]
 
 [node name="Model" parent="." instance=ExtResource("1_tent_model")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)

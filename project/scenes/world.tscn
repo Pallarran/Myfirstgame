@@ -86,22 +86,22 @@ material_override = SubResource("Mat_stream")
 [node name="Trees" type="Node3D" parent="."]
 
 [node name="Tree1" parent="Trees" instance=ExtResource("7_tree_default")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -8, 0, -8)
 
 [node name="Tree2" parent="Trees" instance=ExtResource("8_tree_oak")]
-transform = Transform3D(0.866, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866, -12, 0, 3)
+transform = Transform3D(2.598, 0, 1.5, 0, 3, 0, -1.5, 0, 2.598, -12, 0, 3)
 
 [node name="Tree3" parent="Trees" instance=ExtResource("9_tree_fat")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 11)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -6, 0, 11)
 
 [node name="Tree4" parent="Trees" instance=ExtResource("7_tree_default")]
-transform = Transform3D(0.707, 0, 0.707, 0, 1, 0, -0.707, 0, 0.707, 3, 0, -13)
+transform = Transform3D(2.121, 0, 2.121, 0, 3, 0, -2.121, 0, 2.121, 3, 0, -13)
 
 [node name="Tree5" parent="Trees" instance=ExtResource("8_tree_oak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -3)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 13, 0, -3)
 
 [node name="Tree6" parent="Trees" instance=ExtResource("9_tree_fat")]
-transform = Transform3D(0.5, 0, 0.866, 0, 1, 0, -0.866, 0, 0.5, -3, 0, -4)
+transform = Transform3D(1.5, 0, 2.598, 0, 3, 0, -2.598, 0, 1.5, -3, 0, -4)
 
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("2_camera")
@@ -112,13 +112,13 @@ script = ExtResource("2_camera")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 
 [node name="Campfire" parent="." instance=ExtResource("6_campfire")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="CampfireLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)
 light_color = Color(1.0, 0.62, 0.28, 1)
-light_energy = 1.6
-omni_range = 5.5
+light_energy = 1.8
+omni_range = 7.0
 omni_attenuation = 1.4
 
 [node name="BuildPlots" type="Node3D" parent="."]
