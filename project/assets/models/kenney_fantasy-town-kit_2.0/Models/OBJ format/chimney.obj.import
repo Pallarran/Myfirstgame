@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bai0m1sv6kiwo"
+path="res://.godot/imported/chimney.obj-626350171320d9ea9ee2b3b93f4be12f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/chimney.obj-626350171320d9ea9ee2b3b93f4be12f.mesh"]
+
+source_file="res://assets/models/kenney_fantasy-town-kit_2.0/Models/OBJ format/chimney.obj"
+dest_files=["res://.godot/imported/chimney.obj-626350171320d9ea9ee2b3b93f4be12f.mesh", "res://.godot/imported/chimney.obj-626350171320d9ea9ee2b3b93f4be12f.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

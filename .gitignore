@@ -36,5 +36,15 @@ $RECYCLE.BIN/
 *.swp
 *~
 
+# --- Godot importer temp files ---
+*.tmp
+*.TMP
+*.import~*
+
+# --- Asset packs we don't ship yet ---
+# Starter-Kit-Basic-Scene has a nested duplicated folder name that blows
+# past Windows' 260-char path limit. Re-evaluate if we need it.
+project/assets/models/Starter-Kit-Basic-Scene-*/
+
 # --- Claude Code session files (if any land in-tree) ---
 .claude/

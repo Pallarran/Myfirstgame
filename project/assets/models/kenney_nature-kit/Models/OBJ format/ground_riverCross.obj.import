@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://daqvai55loj0y"
+path="res://.godot/imported/ground_riverCross.obj-4534da2b9aa84c3ed8750b4a2cf6c833.mesh"
+
+[deps]
+
+files=["res://.godot/imported/ground_riverCross.obj-4534da2b9aa84c3ed8750b4a2cf6c833.mesh"]
+
+source_file="res://assets/models/kenney_nature-kit/Models/OBJ format/ground_riverCross.obj"
+dest_files=["res://.godot/imported/ground_riverCross.obj-4534da2b9aa84c3ed8750b4a2cf6c833.mesh", "res://.godot/imported/ground_riverCross.obj-4534da2b9aa84c3ed8750b4a2cf6c833.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dljdm5ek2vuwx"
+path="res://.godot/imported/brick-wall-curve.obj-c6758e637f288e89f75e1d49a0376fb8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/brick-wall-curve.obj-c6758e637f288e89f75e1d49a0376fb8.mesh"]
+
+source_file="res://assets/models/kenney_graveyard-kit_5.0/Models/OBJ format/brick-wall-curve.obj"
+dest_files=["res://.godot/imported/brick-wall-curve.obj-c6758e637f288e89f75e1d49a0376fb8.mesh", "res://.godot/imported/brick-wall-curve.obj-c6758e637f288e89f75e1d49a0376fb8.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

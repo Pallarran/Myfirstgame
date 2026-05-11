@@ -1,18 +1,7 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=2 format=3]
 
-[sub_resource type="CylinderMesh" id="Cyl_tent"]
-top_radius = 0.0
-bottom_radius = 1.2
-height = 2.0
-radial_segments = 8
-
-[sub_resource type="StandardMaterial3D" id="Mat_tent"]
-albedo_color = Color(0.88, 0.7, 0.45, 1)
-roughness = 0.92
+[ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tent_smallOpen.glb" id="1_tent_model"]
 
 [node name="Tent" type="Node3D"]
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
-mesh = SubResource("Cyl_tent")
-material_override = SubResource("Mat_tent")
+[node name="Model" parent="." instance=ExtResource("1_tent_model")]
