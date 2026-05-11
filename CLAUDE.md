@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone C — Villagers (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunk C-3 landed (2026-05-11). Each villager now carries `villager_name`, `villager_age` (16-55 random), `villager_trait` (random from Hardy/Quick/Patient/Cheerful/Skilled/Stout/Keen), `villager_job` ("Idle" until Milestone D adds worker buildings). Villagers have an Area3D ClickArea; clicking emits `clicked(self)` which world.gd routes to a new `VillagerInfoCard` modal (`ui/villager_info_card.tscn` + `scripts/villager_info_card.gd`). Card shows name as title plus the four fields, closes via button or Esc. Traits + job are cosmetic for now — mechanical effects come later.
+**Most recent task:** Chunk C-3 reverted (2026-05-11). Villagers in this project are anonymous — no name, age, trait, job, info card, or click handling. Identity is *not* a feature in this slice or the long-term vision; villagers are part of the population number, not individuals. See memory: `villagers-are-anonymous`. Pre-C-3 state restored: wander only, three starters near campfire, Tent build still spawns an immigrant (unnamed) and bumps housing.
 
-**Next task:** F5-verify clicking any villager (starter or immigrant) opens the info card with their data. Esc/Close button dismisses. Milestone C is then complete; Milestone D (Woodcutter + Forager + worker assignment + click-to-boost + food consumption) is the next big chunk.
+**Next task:** Milestone C is complete (in the form the project actually wants — no info card). Milestone D is next: Woodcutter + Forager + worker assignment + click-to-boost + food consumption. Worker assignment will need a way to indicate "this villager works here", which still doesn't require surfacing identity — likely a count-of-workers per building.
 
 ---
 

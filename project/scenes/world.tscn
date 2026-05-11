@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=16 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_camera"]
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
 [ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
 [ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
-[ext_resource type="PackedScene" path="res://ui/villager_info_card.tscn" id="10_info"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/campfire-pit.glb" id="6_campfire"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_default.glb" id="7_tree_default"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_oak.glb" id="8_tree_oak"]
@@ -140,5 +139,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
 [node name="TopBar" parent="HUD" instance=ExtResource("3_topbar")]
 
 [node name="BuildMenu" parent="HUD" instance=ExtResource("5_menu")]
-
-[node name="VillagerInfoCard" parent="HUD" instance=ExtResource("10_info")]
