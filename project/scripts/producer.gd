@@ -19,10 +19,8 @@ signal workers_changed(current: int, max: int)
 const FLOATING_TEXT_SCENE: PackedScene = preload("res://ui/floating_text_3d.tscn")
 
 # Click-to-boost: clicking a staffed gathering building gives a small
-# instant burst. Cooldown keeps it a "nudge" rather than a spammable
-# bypass of the auto-tick rate.
+# instant burst. No cooldown — spam-clicking just means more bursts.
 const BOOST_AMOUNT: int = 2
-const BOOST_COOLDOWN: float = 2.0
 
 @export_enum("wood", "food") var resource_type: String = "wood"
 @export var production_amount: int = 1
@@ -31,7 +29,6 @@ const BOOST_COOLDOWN: float = 2.0
 
 var current_workers: int = 0
 var _accumulator: float = 0.0
-var _last_boost_time: float = -1000.0
 
 @onready var _area: Area3D = $ClickArea
 
@@ -81,10 +78,6 @@ func _on_area_input(_camera: Node, event: InputEvent, _pos: Vector3, _normal: Ve
 func _try_boost() -> void:
 	if current_workers <= 0:
 		return  # unstaffed buildings can't be boosted — nothing to encourage
-	var now: float = Time.get_ticks_msec() / 1000.0
-	if now - _last_boost_time < BOOST_COOLDOWN:
-		return
-	_last_boost_time = now
 	match resource_type:
 		"wood":
 			GameState.add_wood(BOOST_AMOUNT)
