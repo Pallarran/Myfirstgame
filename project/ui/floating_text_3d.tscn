@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/floating_text_3d.gd" id="1_ft"]
+
+[node name="FloatingText3D" type="Label3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.0, 0)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+pixel_size = 0.006
+text = "+0"
+font_size = 32
+outline_size = 6
+modulate = Color(0.95, 0.96, 0.78, 1)
+outline_modulate = Color(0, 0, 0, 0.8)
+script = ExtResource("1_ft")

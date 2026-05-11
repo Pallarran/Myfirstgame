@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** D-2 UX swap (2026-05-11). Replaced the click-to-open modal with a small **always-visible floating panel** above each gathering building, per user preference. `ui/worker_panel.tscn` + `scripts/worker_panel.gd`: HBox with [−] [N / max] [+], anchored ANCHOR_HEIGHT=4 world units above the building origin, position recomputed every frame via `camera.unproject_position`. Buttons auto-disable at limits. Each Woodcutter/Forager build spawns a panel into the HUD. The producer's click signal stays in place (reserved for click-to-boost in D-3). Memory `inline-ui-over-modals` captures the preference.
+**Most recent task:** Chunk D-3 landed (2026-05-11). Click-to-boost on staffed gathering buildings: left-click the structure → +2 of its resource instantly, with a "+2 wood/food" Label3D rising and fading above the building (`ui/floating_text_3d.tscn` + `scripts/floating_text_3d.gd`). 2-second cooldown per building. Unstaffed buildings ignore clicks (nothing to encourage). The transient feedback Label3D does *not* violate `villagers-are-anonymous` — that rule is about persistent per-unit identity, not 1-second feedback bursts.
 
-**Next task:** F5-verify the floating panel: every Woodcutter/Forager has one above it; orbit/zoom keeps it tracking. Buttons assign/unassign correctly. Then D-3 (click-to-boost on staffed gathering buildings — short bonus burst with feedback) and D-4 (food consumption per villager).
+**Next task:** F5-verify: build + staff a Woodcutter, click it → +2 wood, floating text rises. Click again within 2s — nothing happens (cooldown). Click after 2s — works again. Unstaffed building click does nothing. Then D-4: food consumption per villager (and the "hungry" state for villagers with no food).
 
 ---
 
