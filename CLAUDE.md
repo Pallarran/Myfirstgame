@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone A — Empty world (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Local scaffolding landed in first commit (2026-05-11) — `project/` folder skeleton, minimal `project.godot`, `.gitignore`, `.gitattributes`, `README.md`. Repo initialized on branch `main`.
+**Most recent task:** Repo published to GitHub (2026-05-11) at https://github.com/Pallarran/Myfirstgame. Local scaffolding (`project/` skeleton, minimal `project.godot`, `.gitignore`, `.gitattributes`, `README.md`) is committed on `main` and tracking `origin/main`.
 
-**Next task:** Open `project/project.godot` once in Godot to confirm it loads cleanly (this will generate `project/.godot/` which is gitignored). Then: set up the GitHub remote and push. After that: build the camera rig + terrain + main menu scenes.
+**Next task:** Open `project/project.godot` once in Godot to confirm it loads cleanly (this will generate `project/.godot/` which is gitignored). Then: build the camera rig + terrain + main menu scenes for the rest of Milestone A.
 
 ---
 
