@@ -22,7 +22,7 @@ const MIN_ZOOM: float = 5.0                  # closest the camera can get
 const MAX_ZOOM: float = 40.0                 # furthest the camera can get
 const MIN_PITCH: float = -1.40               # ~-80 degrees (nearly straight down)
 const MAX_PITCH: float = -0.26               # ~-15 degrees (low, almost horizontal)
-const PAN_BOUND: float = 30.0                # half-extent of the playable area; keep camera near map
+const PAN_BOUND: float = 40.0                # half-extent of the playable area; keep camera near map
 const INITIAL_PITCH: float = -PI / 4.0       # -45 degrees: classic diorama tilt
 
 @onready var _arm: Node3D = $CameraArm

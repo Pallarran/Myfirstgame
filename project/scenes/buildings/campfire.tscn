@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/form_root.gd" id="1_form_root"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/campfire-pit.glb" id="2_campfire_model"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/rock-a.glb" id="3_rock_a"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/rock-b.glb" id="4_rock_b"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/resource-wood.glb" id="5_wood"]
+
+[node name="Campfire" type="Node3D"]
+script = ExtResource("1_form_root")
+
+[node name="Model" parent="." instance=ExtResource("2_campfire_model")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+
+[node name="CampfireLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
+light_color = Color(1.0, 0.62, 0.28, 1)
+light_energy = 2.4
+omni_range = 11.0
+omni_attenuation = 1.4
+
+[node name="L2Props" type="Node3D" parent="."]
+visible = false
+
+[node name="RockA" parent="L2Props" instance=ExtResource("3_rock_a")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 4, 0, 3)
+
+[node name="L3Props" type="Node3D" parent="."]
+visible = false
+
+[node name="RockB" parent="L3Props" instance=ExtResource("4_rock_b")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4, 0, 3)
+
+[node name="L4Props" type="Node3D" parent="."]
+visible = false
+
+[node name="WoodPile1" parent="L4Props" instance=ExtResource("5_wood")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -4)
+
+[node name="L5Props" type="Node3D" parent="."]
+visible = false
+
+[node name="WoodPile2" parent="L5Props" instance=ExtResource("5_wood")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4, 0, -3)

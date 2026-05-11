@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/form_root.gd" id="1_form_root"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/tent-canvas-half.glb" id="2_tent_model"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/chest.glb" id="3_chest"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_fantasy-town-kit_2.0/Models/GLB format/banner-green.glb" id="4_banner"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_fantasy-town-kit_2.0/Models/GLB format/lantern.glb" id="5_lantern"]
+
+[node name="EldersTent" type="Node3D"]
+script = ExtResource("1_form_root")
+
+[node name="Model" parent="." instance=ExtResource("2_tent_model")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
+
+[node name="L2Props" type="Node3D" parent="."]
+visible = false
+
+[node name="Chest" parent="L2Props" instance=ExtResource("3_chest")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 4, 0, 2)
+
+[node name="L3Props" type="Node3D" parent="."]
+visible = false
+
+[node name="Lantern" parent="L3Props" instance=ExtResource("5_lantern")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4, 0, 3)
+
+[node name="L4Props" type="Node3D" parent="."]
+visible = false
+
+[node name="Banner" parent="L4Props" instance=ExtResource("4_banner")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, -4)
+
+[node name="L5Props" type="Node3D" parent="."]
+visible = false
+
+[node name="Banner2" parent="L5Props" instance=ExtResource("4_banner")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -4, 0, -3)

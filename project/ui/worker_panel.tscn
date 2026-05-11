@@ -17,11 +17,11 @@ shadow_color = Color(0, 0, 0, 0.45)
 shadow_size = 6
 
 [node name="WorkerPanel" type="Control"]
-custom_minimum_size = Vector2(140, 36)
+custom_minimum_size = Vector2(150, 76)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 140.0
-offset_bottom = 36.0
+offset_right = 150.0
+offset_bottom = 76.0
 mouse_filter = 1
 script = ExtResource("1_wp")
 
@@ -34,28 +34,52 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBox_panel")
 
-[node name="HBox" type="HBoxContainer" parent="Panel"]
+[node name="VBox" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="WorkersRow" type="HBoxContainer" parent="Panel/VBox"]
 layout_mode = 2
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="Minus" type="Button" parent="Panel/HBox"]
+[node name="Minus" type="Button" parent="Panel/VBox/WorkersRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(28, 28)
 text = "−"
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 
-[node name="Label" type="Label" parent="Panel/HBox"]
+[node name="WorkersLabel" type="Label" parent="Panel/VBox/WorkersRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(48, 0)
+custom_minimum_size = Vector2(54, 0)
 text = "0 / 1"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
 theme_override_colors/font_color = Color(0.94, 0.9, 0.8, 1)
 
-[node name="Plus" type="Button" parent="Panel/HBox"]
+[node name="Plus" type="Button" parent="Panel/VBox/WorkersRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(28, 28)
 text = "+"
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
+
+[node name="LevelRow" type="HBoxContainer" parent="Panel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Panel/VBox/LevelRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(70, 0)
+text = "Lv 1/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.88, 0.85, 0.78, 1)
+
+[node name="LevelUp" type="Button" parent="Panel/VBox/LevelRow"]
+layout_mode = 2
+custom_minimum_size = Vector2(36, 28)
+text = "▲"
+theme_override_font_sizes/font_size = 14

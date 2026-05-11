@@ -1,14 +1,16 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=18 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_camera"]
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
 [ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
 [ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
+[ext_resource type="Resource" path="res://data/lineages/heart.tres" id="5d_lin_heart"]
+[ext_resource type="Resource" path="res://data/lineages/chiefs_seat.tres" id="5e_lin_chief"]
+[ext_resource type="Resource" path="res://data/lineages/stream.tres" id="5f_lin_stream"]
 [ext_resource type="Resource" path="res://data/lineages/housing.tres" id="5a_lin_housing"]
 [ext_resource type="Resource" path="res://data/lineages/forest_wood.tres" id="5b_lin_wood"]
 [ext_resource type="Resource" path="res://data/lineages/forest_forage.tres" id="5c_lin_forage"]
-[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/campfire-pit.glb" id="6_campfire"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_default.glb" id="7_tree_default"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_oak.glb" id="8_tree_oak"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_fat.glb" id="9_tree_fat"]
@@ -49,14 +51,14 @@ adjustment_contrast = 1.06
 adjustment_saturation = 1.18
 
 [sub_resource type="PlaneMesh" id="Plane_ground"]
-size = Vector2(30, 30)
+size = Vector2(80, 80)
 
 [sub_resource type="StandardMaterial3D" id="Mat_ground"]
 albedo_color = Color(0.5, 0.64, 0.32, 1)
 roughness = 0.92
 
 [sub_resource type="BoxMesh" id="Box_stream"]
-size = Vector3(2, 0.1, 30)
+size = Vector3(2, 0.1, 60)
 
 [sub_resource type="StandardMaterial3D" id="Mat_stream"]
 albedo_color = Color(0.42, 0.62, 0.75, 1)
@@ -82,29 +84,29 @@ mesh = SubResource("Plane_ground")
 material_override = SubResource("Mat_ground")
 
 [node name="Stream" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0.06, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0.06, 0)
 mesh = SubResource("Box_stream")
 material_override = SubResource("Mat_stream")
 
 [node name="Trees" type="Node3D" parent="."]
 
 [node name="Tree1" parent="Trees" instance=ExtResource("7_tree_default")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -8, 0, -8)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -15, 0, -30)
 
 [node name="Tree2" parent="Trees" instance=ExtResource("8_tree_oak")]
-transform = Transform3D(6.062, 0, 3.5, 0, 7, 0, -3.5, 0, 6.062, -12, 0, 3)
+transform = Transform3D(6.062, 0, 3.5, 0, 7, 0, -3.5, 0, 6.062, -22, 0, -16)
 
 [node name="Tree3" parent="Trees" instance=ExtResource("9_tree_fat")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -6, 0, 11)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -32, 0, -20)
 
 [node name="Tree4" parent="Trees" instance=ExtResource("7_tree_default")]
-transform = Transform3D(4.949, 0, 4.949, 0, 7, 0, -4.949, 0, 4.949, 3, 0, -13)
+transform = Transform3D(4.949, 0, 4.949, 0, 7, 0, -4.949, 0, 4.949, -35, 0, -4)
 
 [node name="Tree5" parent="Trees" instance=ExtResource("8_tree_oak")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 13, 0, -3)
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -22, 0, -6)
 
 [node name="Tree6" parent="Trees" instance=ExtResource("9_tree_fat")]
-transform = Transform3D(3.5, 0, 6.062, 0, 7, 0, -6.062, 0, 3.5, -3, 0, -4)
+transform = Transform3D(3.5, 0, 6.062, 0, 7, 0, -6.062, 0, 3.5, -12, 0, -22)
 
 [node name="CameraRig" type="Node3D" parent="."]
 script = ExtResource("2_camera")
@@ -112,39 +114,50 @@ script = ExtResource("2_camera")
 [node name="CameraArm" type="Node3D" parent="CameraRig"]
 
 [node name="Camera" type="Camera3D" parent="CameraRig/CameraArm"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
-
-[node name="Campfire" parent="." instance=ExtResource("6_campfire")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0)
-
-[node name="CampfireLight" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8, 0)
-light_color = Color(1.0, 0.62, 0.28, 1)
-light_energy = 2.4
-omni_range = 11.0
-omni_attenuation = 1.4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
 
 [node name="BuildPlots" type="Node3D" parent="."]
 
-[node name="TentPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
-lineage = ExtResource("5a_lin_housing")
+[node name="HeartPlot" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+lineage = ExtResource("5d_lin_heart")
+reserved_footprint = Vector2(30, 30)
 
-[node name="TentPlot2" parent="BuildPlots" instance=ExtResource("4_plot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
-lineage = ExtResource("5a_lin_housing")
+[node name="ChiefPlot" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0)
+lineage = ExtResource("5e_lin_chief")
+reserved_footprint = Vector2(16, 16)
+orientation_yaw_deg = -45.0
 
-[node name="TentPlot3" parent="BuildPlots" instance=ExtResource("4_plot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
-lineage = ExtResource("5a_lin_housing")
-
-[node name="WoodcutterPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -1)
+[node name="WoodPlot" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24, 0, -24)
 lineage = ExtResource("5b_lin_wood")
+reserved_footprint = Vector2(14, 10)
+orientation_yaw_deg = -90.0
 
-[node name="ForagerPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 5)
+[node name="ForagePlot" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -12)
 lineage = ExtResource("5c_lin_forage")
+reserved_footprint = Vector2(12, 10)
+orientation_yaw_deg = -90.0
+
+[node name="StreamPlot" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -6)
+lineage = ExtResource("5f_lin_stream")
+reserved_footprint = Vector2(14, 14)
+orientation_yaw_deg = 90.0
+
+[node name="HousingPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 6)
+lineage = ExtResource("5a_lin_housing")
+reserved_footprint = Vector2(10, 8)
+orientation_yaw_deg = -45.0
+
+[node name="HousingPlot2" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
+lineage = ExtResource("5a_lin_housing")
+reserved_footprint = Vector2(10, 8)
+orientation_yaw_deg = 45.0
 
 [node name="Villagers" type="Node3D" parent="."]
 

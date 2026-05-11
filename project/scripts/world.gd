@@ -46,6 +46,12 @@ func _ready() -> void:
 	for plot in _plots_root.get_children():
 		if plot.has_signal("clicked"):
 			plot.clicked.connect(_on_plot_clicked)
+	# Heart plot is pre-built per VERTICAL_SLICE_PRD.md and PLOT_LINEAGES.md
+	# §1 — the Campfire is already there when the game starts. Auto-build
+	# it now without charging the player wood.
+	for plot in _plots_root.get_children():
+		if plot.lineage != null and plot.lineage.lineage_id == "heart":
+			_do_build(plot, false)
 	for spawn_position in STARTER_VILLAGER_POSITIONS:
 		_spawn_villager(spawn_position)
 
@@ -91,28 +97,32 @@ func _on_plot_clicked(plot: Node3D) -> void:
 	_build_menu.open_for(plot)
 
 func _on_build_confirmed(plot: Node3D) -> void:
+	_do_build(plot, true)
+
+# Shared build path. `charge_cost=true` spends wood (regular build via menu);
+# `charge_cost=false` is for pre-built / auto-built plots like the Heart.
+func _do_build(plot: Node3D, charge_cost: bool) -> void:
 	var form: Form = plot.current_form()
-	# Safety net: the menu disables Build when broke, but spend_wood double-checks.
-	if not GameState.spend_wood(form.wood_cost):
-		return
-	# Plot now persists post-build (it owns the building + camouflage). Per
-	# MAP_SPECIFICATION.md §10 the plot is the long-lived state container.
+	if charge_cost:
+		# Safety net: the menu disables Build when broke; this double-checks.
+		if not GameState.spend_wood(form.wood_cost):
+			return
+	# Plot persists post-build (owns building + camouflage), per
+	# MAP_SPECIFICATION.md §10.
 	var building: Node3D = plot.build_form()
 	if building == null:
 		return
 	if building.has_method("set_plot"):
 		building.set_plot(plot)
-	# Gathering buildings get a small floating worker panel that hovers
-	# above them in screen space. Tents/Elder's Tent don't have workers
-	# and get their floating panel from R-5 (the combined level+workers UI).
+	# Every built plot gets a floating combined workers+level panel. The
+	# panel decides internally whether to render the workers row.
+	var panel: Control = WORKER_PANEL_SCENE.instantiate()
+	_hud.add_child(panel)
+	panel.bind_to(building, plot)
 	if building.has_signal("workers_changed"):
-		var panel: Control = WORKER_PANEL_SCENE.instantiate()
-		_hud.add_child(panel)
-		panel.bind_to(building)
 		building.workers_changed.connect(func(_c, _m): panel._refresh())
 	if form.housing_provided > 0:
 		GameState.add_housing(form.housing_provided)
 	if form.attracts_villager:
-		# Use the plot's global_position now that the building is a child of
-		# the plot (building.position would be local-zero relative to plot).
+		# plot.global_position now that buildings are plot-local children.
 		_spawn_immigrant_near(plot.global_position)

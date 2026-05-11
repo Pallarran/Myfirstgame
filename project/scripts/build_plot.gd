@@ -64,17 +64,23 @@ func build_form() -> Node3D:
 		return null
 	var building: Node3D = scene.instantiate()
 	add_child(building)
+	# Apply the plot's facing rotation per MAP_SPECIFICATION.md §6
+	# (Buildings face Heart on periphery, resource buildings face their
+	# resource, Sacred Height faces Heart, defense faces outward, etc.).
+	building.rotation_degrees.y = orientation_yaw_deg
 	current_building_instance = building
 	current_level = 1
 	activation_state = "Built"
 	_set_unbuilt_visuals_visible(false)
 	# Camouflage: persistent props that fill the plot's reserved space at
-	# small forms (MAP_SPECIFICATION.md §5). Same lifetime as the building.
+	# small forms (MAP_SPECIFICATION.md §5). Same lifetime as the building,
+	# and inherits orientation so props stay on the correct side.
 	if form.camouflage_scene_path != "":
 		var cam_scene: PackedScene = load(form.camouflage_scene_path)
 		if cam_scene != null:
 			var cam: Node3D = cam_scene.instantiate()
 			add_child(cam)
+			cam.rotation_degrees.y = orientation_yaw_deg
 			current_camouflage_instance = cam
 	# Wire the level-up signal into the building's set_level so visual
 	# layers toggle as the player upgrades. Sync the initial state.
