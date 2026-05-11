@@ -133,11 +133,17 @@ To export a Windows build: see `README.md` (TBD).
 
 > **Update this section every session.** Highest-leverage habit for working with Claude Code.
 
-**Current milestone:** Slice 1 — Milestone E (polish: day/night, audio, save/load, tutorial). Foundations through Milestone D are already shipped.
+**Current milestone:** Slice 1 — Milestone F (ship-able: bug fixes, settings tuning, Windows export, friend playtest).
 
-**Most recent task:** Lineage system retrofit complete (R-1 through R-6, 2026-05-11). Slice 1 is on the new Lineage → Form → Levels foundation per VISION_PRD.md v2, PLOT_LINEAGES.md, MAP_SPECIFICATION.md. 7 plots on the map-spec layout (Heart auto-built; Chief/Wood/Forage/Stream/2×Housing buildable). 5 visible levels per form with Kenney prop-stacking. Anchor-and-grow with per-form camouflage. Combined floating worker+level panel above each built plot. Water resource produced by Stream, stockpiles in TopBar. Villagers stay anonymous (slice PRD's info card explicitly overridden — see memory).
+**Most recent task:** Milestone E shipped (E-1 through E-6, 2026-05-11):
+- E-1 Day/night cycle (4 min per day, sun rotation, sky/ambient lerp, TimeLabel in TopBar showing Day N HH:MM).
+- E-2 Notification feed in the bottom-left (building constructed, leveled up, villager arrived, hungry transitions, day change; fades after 4s).
+- E-3 Tutorial prompts (3 stages: welcome on game start, "click + to assign worker" after first build, "click building to boost" after first worker).
+- E-4 JSON save/load at `user://savegame.json`. Autosave every 10 min; F6 manual, F7 reload via main menu. Main menu's Continue button enables when a save exists.
+- E-5 AudioManager autoload with SFX_PATHS registry. Hooks fire silently if files are missing — drop `.ogg`/`.wav` files at `assets/audio/sfx/{build_complete,boost,notification,button_click,level_up}.wav` and `assets/audio/music/camp_ambient.ogg` and the sounds wire up automatically.
+- E-6 Settings menu on Esc with master/music/sfx sliders, fullscreen toggle, Resume / Main Menu / Save & Quit. Pauses the tree while open.
 
-**Next task:** F5 + verify the new layout end-to-end (Heart pre-built with campfire-pit + camouflage; build each of the 6 plots; level each up 1→5 spending wood; producers scale output with level; Water Carrier Post fills the Water counter). Then Milestone E begins: day/night cycle, diegetic audio, ambient music, notification feed, save/load, tutorial.
+**Next task:** F5 + verify all of Milestone E end-to-end. Then Milestone F: bug fixes, Windows export, friend playtest. Audio files are the biggest deferred dependency — slice can ship silent if needed.
 
 ---
 
