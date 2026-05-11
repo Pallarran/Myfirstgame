@@ -105,6 +105,7 @@ func try_level_up() -> bool:
 		return false
 	current_level += 1
 	level_changed.emit(current_level)
+	EventBus.building_leveled_up.emit(form.display_name, current_level)
 	return true
 
 # Output multiplier for the current level, looked up from the form's array.

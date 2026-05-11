@@ -92,6 +92,7 @@ func _spawn_immigrant_near(target_position: Vector3) -> void:
 		return  # at cap (8) — silently skip
 	var offset := Vector3(randf_range(-1.8, 1.8), 0.0, randf_range(-1.8, 1.8))
 	_spawn_villager(target_position + offset)
+	EventBus.villager_arrived.emit()
 
 func _on_plot_clicked(plot: Node3D) -> void:
 	_build_menu.open_for(plot)
@@ -126,3 +127,6 @@ func _do_build(plot: Node3D, charge_cost: bool) -> void:
 	if form.attracts_villager:
 		# plot.global_position now that buildings are plot-local children.
 		_spawn_immigrant_near(plot.global_position)
+	# Notify the feed (Heart auto-build also fires this; for slice 1 a "Camp
+	# established" line at game start is friendly rather than noisy).
+	EventBus.building_constructed.emit(form.display_name)

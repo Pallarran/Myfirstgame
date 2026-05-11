@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_camera"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
 [ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
 [ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
+[ext_resource type="PackedScene" path="res://ui/notification_feed.tscn" id="5g_notif"]
 [ext_resource type="Resource" path="res://data/lineages/heart.tres" id="5d_lin_heart"]
 [ext_resource type="Resource" path="res://data/lineages/chiefs_seat.tres" id="5e_lin_chief"]
 [ext_resource type="Resource" path="res://data/lineages/stream.tres" id="5f_lin_stream"]
@@ -172,3 +173,5 @@ environment_path = NodePath("../WorldEnvironment")
 [node name="TopBar" parent="HUD" instance=ExtResource("3_topbar")]
 
 [node name="BuildMenu" parent="HUD" instance=ExtResource("5_menu")]
+
+[node name="NotificationFeed" parent="HUD" instance=ExtResource("5g_notif")]

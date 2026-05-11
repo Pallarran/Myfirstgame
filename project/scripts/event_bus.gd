@@ -34,3 +34,13 @@ signal hungry_changed(count: int)
 # --- Time ----------------------------------------------------------------
 @warning_ignore("unused_signal")
 signal day_changed(new_day: int)
+
+# --- Buildings -----------------------------------------------------------
+@warning_ignore("unused_signal")
+signal building_constructed(form_display_name: String)
+
+@warning_ignore("unused_signal")
+signal building_leveled_up(form_display_name: String, new_level: int)
+
+@warning_ignore("unused_signal")
+signal villager_arrived
