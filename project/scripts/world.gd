@@ -41,6 +41,7 @@ const STARTER_VILLAGER_POSITIONS: Array = [
 @onready var _villagers_root: Node3D = $Villagers
 @onready var _hud: CanvasLayer = $HUD
 @onready var _build_menu: Control = $HUD/BuildMenu
+@onready var _settings_menu: Control = $HUD/SettingsMenu
 
 var _food_tick_accumulator: float = 0.0
 var _autosave_accumulator: float = 0.0
@@ -90,8 +91,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	match event.keycode:
 		KEY_ESCAPE:
+			# Esc now opens the in-game settings menu instead of going
+			# straight to the main menu. From settings the player can pick
+			# Resume / Main Menu / Save & Quit. Other modals (BuildMenu,
+			# TutorialPrompts) consume Esc before us when they're visible.
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			get_tree().change_scene_to_file(MAIN_MENU_PATH)
+			_settings_menu.open()
 		KEY_F1:
 			GameState.add_wood(DEBUG_WOOD_DELTA)
 		KEY_F2:
