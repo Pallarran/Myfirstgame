@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone A — Empty world (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Repo published to GitHub (2026-05-11) at https://github.com/Pallarran/Myfirstgame. Local scaffolding (`project/` skeleton, minimal `project.godot`, `.gitignore`, `.gitattributes`, `README.md`) is committed on `main` and tracking `origin/main`.
+**Most recent task:** Milestone A scenes built (2026-05-11): main menu (`scenes/main_menu.tscn` + `scripts/main_menu.gd`) and world scene (`scenes/world.tscn` + `scripts/world.gd` + `scripts/camera_rig.gd`). Camera supports right-click orbit, WASD/arrow pan, scroll-wheel zoom. Esc returns to the main menu. Main scene set to `main_menu.tscn`.
 
-**Next task:** Open `project/project.godot` once in Godot to confirm it loads cleanly (this will generate `project/.godot/` which is gitignored). Then: build the camera rig + terrain + main menu scenes for the rest of Milestone A.
+**Next task:** Open the project in Godot and **F5 to verify** — should boot to the title screen, "New Game" loads the world, Esc returns to menu, "Quit" exits. If anything looks broken (script errors in the Output panel, missing nodes, weird camera), report the exact error. Once verified, Milestone A is complete and we move to Milestone B (building plot system + first buildable Tent).
 
 ---
 
