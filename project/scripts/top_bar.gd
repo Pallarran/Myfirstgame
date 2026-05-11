@@ -11,6 +11,7 @@ extends Control
 @onready var _pop_label: Label = $Panel/Margin/HBox/PopLabel
 @onready var _idle_label: Label = $Panel/Margin/HBox/IdleLabel
 @onready var _hungry_label: Label = $Panel/Margin/HBox/HungryLabel
+@onready var _time_label: Label = $Panel/Margin/HBox/TimeLabel
 
 func _ready() -> void:
 	EventBus.wood_changed.connect(_on_wood_changed)
@@ -49,3 +50,12 @@ func _on_hungry_changed(count: int) -> void:
 	# Hide the label when nobody's hungry — quieter UI in the steady state.
 	_hungry_label.visible = count > 0
 	_hungry_label.text = "Hungry: %d" % count
+
+func _process(_delta: float) -> void:
+	# Update the time-of-day display every frame. Labels are cheap; this avoids
+	# burning a signal/timer just to refresh a string.
+	var t: float = GameState.time_of_day
+	var total_minutes: int = int(t * 24.0 * 60.0)
+	var hh: int = total_minutes / 60
+	var mm: int = total_minutes % 60
+	_time_label.text = "Day %d  %02d:%02d" % [GameState.day_count, hh, mm]

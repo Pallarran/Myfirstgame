@@ -30,3 +30,7 @@ signal workers_changed(assigned: int, total_pop: int)
 
 @warning_ignore("unused_signal")
 signal hungry_changed(count: int)
+
+# --- Time ----------------------------------------------------------------
+@warning_ignore("unused_signal")
+signal day_changed(new_day: int)

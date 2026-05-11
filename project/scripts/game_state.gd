@@ -75,6 +75,14 @@ func spend_water(amount: int) -> bool:
 func can_afford_water(amount: int) -> bool:
 	return water >= amount
 
+# --- Time of day --------------------------------------------------------
+# Cosmetic only in slice 1 (VERTICAL_SLICE_PRD.md §2). time_of_day ∈ [0, 1):
+# 0 = midnight, 0.25 = dawn, 0.5 = noon, 0.75 = dusk. Wraps at 1.0;
+# day_count increments when it wraps.
+
+var time_of_day: float = 0.3  # start mid-morning so first frame isn't dark
+var day_count: int = 1
+
 # --- Population ----------------------------------------------------------
 
 # The Campfire houses the starting villagers; each Tent adds TENT_HOUSING.

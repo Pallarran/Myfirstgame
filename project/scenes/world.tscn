@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=19 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_camera"]
+[ext_resource type="Script" path="res://scripts/day_night_cycle.gd" id="2b_daynight"]
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
 [ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
 [ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
@@ -158,6 +159,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 6)
 lineage = ExtResource("5a_lin_housing")
 reserved_footprint = Vector2(10, 8)
 orientation_yaw_deg = 45.0
+
+[node name="DayNightCycle" type="Node" parent="."]
+script = ExtResource("2b_daynight")
+sun_path = NodePath("../Sun")
+environment_path = NodePath("../WorldEnvironment")
 
 [node name="Villagers" type="Node3D" parent="."]
 
