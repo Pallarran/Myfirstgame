@@ -23,6 +23,9 @@ const DEBUG_WOOD_DELTA: int = 5
 const FOOD_TICK_INTERVAL: float = 12.0
 const FOOD_PER_VILLAGER: int = 1
 
+# Autosave every 10 minutes per VERTICAL_SLICE_PRD.md §2.
+const AUTOSAVE_INTERVAL: float = 600.0
+
 const VILLAGER_SCENE: PackedScene = preload("res://scenes/villagers/villager.tscn")
 const WORKER_PANEL_SCENE: PackedScene = preload("res://ui/worker_panel.tscn")
 
@@ -40,6 +43,7 @@ const STARTER_VILLAGER_POSITIONS: Array = [
 @onready var _build_menu: Control = $HUD/BuildMenu
 
 var _food_tick_accumulator: float = 0.0
+var _autosave_accumulator: float = 0.0
 
 func _ready() -> void:
 	_build_menu.confirmed.connect(_on_build_confirmed)
@@ -54,12 +58,21 @@ func _ready() -> void:
 			_do_build(plot, false)
 	for spawn_position in STARTER_VILLAGER_POSITIONS:
 		_spawn_villager(spawn_position)
+	# Apply pending save data on top of the fresh setup, if any (loaded
+	# from the main menu's Continue button).
+	var pending: Dictionary = SaveSystem.consume_pending_load()
+	if not pending.is_empty():
+		_apply_pending_load(pending)
 
 func _process(delta: float) -> void:
 	_food_tick_accumulator += delta
 	if _food_tick_accumulator >= FOOD_TICK_INTERVAL:
 		_food_tick_accumulator -= FOOD_TICK_INTERVAL
 		_do_food_tick()
+	_autosave_accumulator += delta
+	if _autosave_accumulator >= AUTOSAVE_INTERVAL:
+		_autosave_accumulator = 0.0
+		SaveSystem.save_world(self)
 
 func _do_food_tick() -> void:
 	var hungry_count: int = 0
@@ -81,6 +94,14 @@ func _unhandled_input(event: InputEvent) -> void:
 			GameState.add_wood(DEBUG_WOOD_DELTA)
 		KEY_F2:
 			GameState.spend_wood(DEBUG_WOOD_DELTA)
+		KEY_F6:
+			# Manual save (debug). Once the settings menu lands (E-6),
+			# this becomes a "Save & Quit" menu action.
+			SaveSystem.save_world(self)
+		KEY_F7:
+			# Manual reload: write nothing, just bounce through the main
+			# menu so Continue picks up the save.
+			get_tree().change_scene_to_file(MAIN_MENU_PATH)
 
 func _spawn_villager(spawn_position: Vector3) -> void:
 	var villager: Node3D = VILLAGER_SCENE.instantiate()
@@ -96,6 +117,63 @@ func _spawn_immigrant_near(target_position: Vector3) -> void:
 
 func _on_plot_clicked(plot: Node3D) -> void:
 	_build_menu.open_for(plot)
+
+# --- Save / load --------------------------------------------------------
+# SaveSystem calls serialize_world on save; the result merges into the
+# top-level save dict. On load, world.gd._ready calls _apply_pending_load
+# after its normal setup runs (Heart auto-built, starter villagers spawned).
+
+func serialize_world() -> Dictionary:
+	var plots: Array = []
+	for plot in _plots_root.get_children():
+		if plot.activation_state != "Built":
+			continue
+		var workers: int = 0
+		var b: Node3D = plot.current_building_instance
+		if b != null and "current_workers" in b:
+			workers = b.current_workers
+		plots.append({
+			"name": plot.name,
+			"form_index": plot.current_form_index,
+			"level": plot.current_level,
+			"workers": workers,
+		})
+	return {"plots": plots}
+
+func _apply_pending_load(data: Dictionary) -> void:
+	# 1. Restore GameState fields (resources, time, day, pop counts).
+	SaveSystem.apply_game_state(data.get("game_state", {}))
+	# 2. Restore plot states. The Heart was auto-built at level 1; if the
+	#    save has it at a higher level, bring it up. For other plots, build
+	#    them silently and set their level + workers.
+	var world_data: Dictionary = data.get("world", {})
+	var saved_plots: Array = world_data.get("plots", [])
+	for saved in saved_plots:
+		var plot_name: String = saved.get("name", "")
+		if not _plots_root.has_node(plot_name):
+			continue
+		var plot: Node3D = _plots_root.get_node(plot_name)
+		# Build the plot if it's not already (Heart is; others aren't).
+		if plot.activation_state != "Built":
+			_do_build(plot, false)
+		# Set level (visual + multiplier driven through set_level signal).
+		var saved_level: int = int(saved.get("level", 1))
+		plot.current_level = saved_level
+		if plot.current_building_instance != null and plot.current_building_instance.has_method("set_level"):
+			plot.current_building_instance.set_level(saved_level)
+		# Restore worker count by setting the building's current_workers
+		# directly. GameState.workers_assigned was restored above, so we
+		# don't go through try_assign (which would double-bump the global tally).
+		var b: Node3D = plot.current_building_instance
+		if b != null and "current_workers" in b:
+			var saved_workers: int = int(saved.get("workers", 0))
+			b.current_workers = saved_workers
+			if b.has_signal("workers_changed"):
+				b.workers_changed.emit(saved_workers, b.max_workers)
+	# 3. Reconcile villager count: spawn extras up to current_population.
+	while _villagers_root.get_child_count() < GameState.current_population:
+		var offset: Vector3 = Vector3(randf_range(-3.0, 3.0), 0.0, randf_range(-3.0, 3.0))
+		_spawn_villager(offset)
 
 func _on_build_confirmed(plot: Node3D) -> void:
 	_do_build(plot, true)
