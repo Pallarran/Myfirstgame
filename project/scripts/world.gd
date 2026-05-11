@@ -16,6 +16,13 @@ extends Node3D
 const MAIN_MENU_PATH: String = "res://scenes/main_menu.tscn"
 const DEBUG_WOOD_DELTA: int = 5
 
+# Food consumption: each villager eats FOOD_PER_VILLAGER every FOOD_TICK_INTERVAL
+# seconds. If the global food pool can't cover everyone on a given tick, the
+# villagers who missed enter the "hungry" state (slower walk, no death — slice
+# pillar #1, no fail states that erase progress).
+const FOOD_TICK_INTERVAL: float = 12.0
+const FOOD_PER_VILLAGER: int = 1
+
 const VILLAGER_SCENE: PackedScene = preload("res://scenes/villagers/villager.tscn")
 const WORKER_PANEL_SCENE: PackedScene = preload("res://ui/worker_panel.tscn")
 
@@ -32,6 +39,8 @@ const STARTER_VILLAGER_POSITIONS: Array = [
 @onready var _hud: CanvasLayer = $HUD
 @onready var _build_menu: Control = $HUD/BuildMenu
 
+var _food_tick_accumulator: float = 0.0
+
 func _ready() -> void:
 	_build_menu.confirmed.connect(_on_build_confirmed)
 	for plot in _plots_root.get_children():
@@ -39,6 +48,21 @@ func _ready() -> void:
 			plot.clicked.connect(_on_plot_clicked)
 	for spawn_position in STARTER_VILLAGER_POSITIONS:
 		_spawn_villager(spawn_position)
+
+func _process(delta: float) -> void:
+	_food_tick_accumulator += delta
+	if _food_tick_accumulator >= FOOD_TICK_INTERVAL:
+		_food_tick_accumulator -= FOOD_TICK_INTERVAL
+		_do_food_tick()
+
+func _do_food_tick() -> void:
+	var hungry_count: int = 0
+	for villager in _villagers_root.get_children():
+		var ate: bool = GameState.spend_food(FOOD_PER_VILLAGER)
+		villager.is_hungry = not ate
+		if not ate:
+			hungry_count += 1
+	GameState.set_hungry_count(hungry_count)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):

@@ -102,3 +102,15 @@ func unassign_worker() -> bool:
 	workers_assigned -= 1
 	EventBus.workers_changed.emit(workers_assigned, current_population)
 	return true
+
+# --- Hunger --------------------------------------------------------------
+# Count of villagers currently in the "hungry" state. Updated by the food
+# tick in world.gd; surfaced via the TopBar.
+
+var current_hungry: int = 0
+
+func set_hungry_count(count: int) -> void:
+	if count == current_hungry:
+		return
+	current_hungry = count
+	EventBus.hungry_changed.emit(current_hungry)

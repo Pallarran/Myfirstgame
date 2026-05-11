@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunk D-3 landed (2026-05-11). Click-to-boost on staffed gathering buildings: left-click the structure → +2 of its resource instantly, with a "+2 wood/food" Label3D rising and fading above the building (`ui/floating_text_3d.tscn` + `scripts/floating_text_3d.gd`). 2-second cooldown per building. Unstaffed buildings ignore clicks (nothing to encourage). The transient feedback Label3D does *not* violate `villagers-are-anonymous` — that rule is about persistent per-unit identity, not 1-second feedback bursts.
+**Most recent task:** Chunks D-3 cooldown removed + D-4 food consumption landed (2026-05-11). Click-to-boost has no cooldown anymore — spam-clicking just produces more bursts (still gated on at least 1 worker assigned). Food tick: every 12s, each villager tries to eat 1 food. Villagers who miss enter `is_hungry=true` and walk at 55% speed; villagers who eat reset to `is_hungry=false`. Per `villagers-are-anonymous`, hunger surfaces only as a TopBar count ("Hungry: N", hidden when zero). `EventBus.hungry_changed` fires; `GameState.current_hungry` + `set_hungry_count()`. No death — Pillar #1, no fail states that erase progress.
 
-**Next task:** F5-verify: build + staff a Woodcutter, click it → +2 wood, floating text rises. Click again within 2s — nothing happens (cooldown). Click after 2s — works again. Unstaffed building click does nothing. Then D-4: food consumption per villager (and the "hungry" state for villagers with no food).
+**Next task:** F5-verify a long session: 3 starters with 30 food, 1 Forager staffed nets out slightly negative (3 villagers × 1 food/12s = 0.25/s; Forager auto-produces 0.125/s). Hunger should appear when food hits 0, drop when a Forager catches up or you boost. Then **Milestone E** (polish: day/night cycle, audio, notifications, save/load, tutorial) — the big jump — or whichever piece of E you want first.
 
 ---
 

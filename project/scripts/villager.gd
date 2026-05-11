@@ -17,6 +17,10 @@ extends Node3D
 const PAUSE_RANGE: Vector2 = Vector2(1.0, 3.5)
 # Stay inside roughly the playable area so villagers don't drift off the map.
 const MAP_HALF_EXTENT: float = 13.0
+# Hungry villagers move slower (slice §2: "slower work"). No death in slice 1.
+const HUNGRY_SPEED_MULTIPLIER: float = 0.55
+
+var is_hungry: bool = false
 
 var _target: Vector3
 var _pause_remaining: float = 0.0
@@ -37,7 +41,8 @@ func _process(delta: float) -> void:
 		_pick_new_target()
 		return
 	var direction: Vector3 = to_target.normalized()
-	position += direction * walk_speed * delta
+	var effective_speed: float = walk_speed * (HUNGRY_SPEED_MULTIPLIER if is_hungry else 1.0)
+	position += direction * effective_speed * delta
 	# Face the direction of travel so the placeholder body visibly turns.
 	var look_target: Vector3 = position + direction
 	look_at(Vector3(look_target.x, position.y, look_target.z), Vector3.UP)
