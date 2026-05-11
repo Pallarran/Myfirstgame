@@ -21,3 +21,6 @@ signal food_changed(new_amount: int)
 # --- Population ----------------------------------------------------------
 @warning_ignore("unused_signal")
 signal population_changed(current_pop: int, max_pop: int)
+
+@warning_ignore("unused_signal")
+signal workers_changed(assigned: int, total_pop: int)

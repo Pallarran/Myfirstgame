@@ -78,3 +78,27 @@ func add_housing(amount: int) -> void:
 		return
 	max_population = min(POPULATION_HARD_CAP, max_population + amount)
 	EventBus.population_changed.emit(current_population, max_population)
+
+# --- Workers -------------------------------------------------------------
+# Tracking is count-based: how many of the current_population are assigned
+# to some building. Villagers don't have per-unit identity (see memory:
+# villagers-are-anonymous), so this is purely a global tally.
+
+var workers_assigned: int = 0
+
+func idle_population() -> int:
+	return current_population - workers_assigned
+
+func assign_worker() -> bool:
+	if idle_population() <= 0:
+		return false
+	workers_assigned += 1
+	EventBus.workers_changed.emit(workers_assigned, current_population)
+	return true
+
+func unassign_worker() -> bool:
+	if workers_assigned <= 0:
+		return false
+	workers_assigned -= 1
+	EventBus.workers_changed.emit(workers_assigned, current_population)
+	return true

@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunk D-1 landed (2026-05-11). Food resource added (GameState.food / food_changed signal / TopBar Food: X). Building data refactored from hardcoded constants on the plot to a **BuildingType Resource catalog** in `project/data/buildings/` — `tent.tres`, `woodcutter.tres`, `forager.tres`. BuildPlot now @exports a `building_type: BuildingType`; world.tscn sets it per plot. Woodcutter (`scenes/buildings/woodcutter.tscn`) and Forager (`scenes/buildings/forager.tscn`) added with Kenney placeholders, both running `scripts/producer.gd` for auto-production every 8s (no worker assignment yet — D-2). World now has 5 plots: 3 Tent, 1 Woodcutter, 1 Forager.
+**Most recent task:** Chunk D-2 landed (2026-05-11). Worker assignment, count-based per memory `villagers-are-anonymous`. GameState tracks `workers_assigned` and exposes `idle_population()`; EventBus emits `workers_changed(assigned, total)`. TopBar shows `Idle: N`. producer.gd now scales production by `current_workers` and pauses at 0 workers; gathering buildings only tick when staffed. Each Woodcutter/Forager has an Area3D ClickArea and emits `clicked(self)` → world routes to `ui/building_info_panel.tscn`. The panel shows worker count `N / max`, +/- buttons (auto-disable at limits), and a production-rate flavor line. Esc closes. Tents stay non-interactive (no workers).
 
-**Next task:** F5-verify: top bar shows Wood/Food/Pop, building a Woodcutter starts +1 wood every 8s, Forager +1 food every 8s, Tent flow still adds housing + immigrant. Then chunks D-2 (worker assignment — count-based per memory), D-3 (click-to-boost on gathering buildings), D-4 (food consumption per villager).
+**Next task:** F5-verify: build a Woodcutter → it does *not* produce anything until you click it and press +. Idle drops from 3 to 2, Workers shows 1/1, wood starts ticking. Press - to unassign, production stops. Build a Tent → Idle goes up by 1 (new immigrant). Then D-3 (click-to-boost on staffed gathering buildings) and D-4 (food consumption per villager).
 
 ---
 

@@ -29,6 +29,7 @@ const STARTER_VILLAGER_POSITIONS: Array = [
 @onready var _plots_root: Node3D = $BuildPlots
 @onready var _villagers_root: Node3D = $Villagers
 @onready var _build_menu: Control = $HUD/BuildMenu
+@onready var _building_panel: Control = $HUD/BuildingInfoPanel
 
 func _ready() -> void:
 	_build_menu.confirmed.connect(_on_build_confirmed)
@@ -74,7 +75,14 @@ func _on_build_confirmed(plot: Node3D) -> void:
 	building.transform = plot.transform
 	plot.get_parent().add_child(building)
 	plot.queue_free()
+	# Gathering buildings (Woodcutter, Forager) emit `clicked` for the
+	# building info panel. Tents don't have workers and stay non-interactive.
+	if building.has_signal("clicked"):
+		building.clicked.connect(_on_building_clicked)
 	if bt.housing_provided > 0:
 		GameState.add_housing(bt.housing_provided)
 	if bt.attracts_villager:
 		_spawn_immigrant_near(building.position)
+
+func _on_building_clicked(building: Node3D) -> void:
+	_building_panel.open_for(building)

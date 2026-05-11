@@ -8,14 +8,17 @@ extends Control
 @onready var _wood_label: Label = $Panel/Margin/HBox/WoodLabel
 @onready var _food_label: Label = $Panel/Margin/HBox/FoodLabel
 @onready var _pop_label: Label = $Panel/Margin/HBox/PopLabel
+@onready var _idle_label: Label = $Panel/Margin/HBox/IdleLabel
 
 func _ready() -> void:
 	EventBus.wood_changed.connect(_on_wood_changed)
 	EventBus.food_changed.connect(_on_food_changed)
 	EventBus.population_changed.connect(_on_population_changed)
+	EventBus.workers_changed.connect(_on_workers_changed)
 	_on_wood_changed(GameState.wood)
 	_on_food_changed(GameState.food)
 	_on_population_changed(GameState.current_population, GameState.max_population)
+	_refresh_idle()
 
 func _on_wood_changed(new_amount: int) -> void:
 	_wood_label.text = "Wood: %d" % new_amount
@@ -25,3 +28,10 @@ func _on_food_changed(new_amount: int) -> void:
 
 func _on_population_changed(current_pop: int, max_pop: int) -> void:
 	_pop_label.text = "Pop: %d / %d" % [current_pop, max_pop]
+	_refresh_idle()
+
+func _on_workers_changed(_assigned: int, _total: int) -> void:
+	_refresh_idle()
+
+func _refresh_idle() -> void:
+	_idle_label.text = "Idle: %d" % GameState.idle_population()
