@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/villager.gd" id="1_villager"]
 
@@ -17,15 +17,3 @@ script = ExtResource("1_villager")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("Cap_body")
 material_override = SubResource("Mat_body")
-
-[node name="NameLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
-billboard = 1
-no_depth_test = true
-fixed_size = true
-pixel_size = 0.005
-text = "Villager"
-font_size = 28
-outline_size = 6
-modulate = Color(0.98, 0.96, 0.88, 1)
-outline_modulate = Color(0, 0, 0, 0.7)

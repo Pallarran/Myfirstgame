@@ -5,8 +5,9 @@
 # walks there, pauses, picks another. Good enough for "the camp feels
 # alive" until real jobs land in Milestone D.
 #
-# Configure via the @export `villager_name` BEFORE adding to the scene
-# tree so the floating Label3D shows the right name on _ready.
+# Set `villager_name` before adding the villager to the scene tree. It's
+# kept on the node for use by the info-card chunk later — no floating
+# label above the head (visual noise at scale, per design feedback).
 extends Node3D
 
 @export var villager_name: String = "Unknown"
@@ -22,11 +23,8 @@ var _target: Vector3
 var _pause_remaining: float = 0.0
 var _spawn_origin: Vector3
 
-@onready var _name_label: Label3D = $NameLabel
-
 func _ready() -> void:
 	_spawn_origin = position
-	_name_label.text = villager_name
 	_pick_new_target()
 
 func _process(delta: float) -> void:
