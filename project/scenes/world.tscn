@@ -1,8 +1,22 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_world"]
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="2_camera"]
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
+[ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
+[ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
+
+[sub_resource type="CylinderMesh" id="Cyl_fire"]
+top_radius = 0.0
+bottom_radius = 0.6
+height = 0.8
+
+[sub_resource type="StandardMaterial3D" id="Mat_fire"]
+albedo_color = Color(0.95, 0.45, 0.15, 1)
+emission_enabled = true
+emission = Color(1.0, 0.5, 0.12, 1)
+emission_energy_multiplier = 1.4
+roughness = 0.85
 
 [sub_resource type="ProceduralSkyMaterial" id="Sky_proc"]
 sky_horizon_color = Color(0.72, 0.78, 0.85, 1)
@@ -103,6 +117,24 @@ script = ExtResource("2_camera")
 [node name="Camera" type="Camera3D" parent="CameraRig/CameraArm"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 
+[node name="Campfire" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+mesh = SubResource("Cyl_fire")
+material_override = SubResource("Mat_fire")
+
+[node name="BuildPlots" type="Node3D" parent="."]
+
+[node name="Plot1" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
+
+[node name="Plot2" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
+
+[node name="Plot3" parent="BuildPlots" instance=ExtResource("4_plot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="TopBar" parent="HUD" instance=ExtResource("3_topbar")]
+
+[node name="BuildMenu" parent="HUD" instance=ExtResource("5_menu")]

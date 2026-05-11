@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://scripts/build_plot.gd" id="1_plot"]
+
+[sub_resource type="PlaneMesh" id="Plane_marker"]
+size = Vector2(3, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_marker"]
+transparency = 1
+albedo_color = Color(0.95, 0.78, 0.32, 0.45)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_hover"]
+transparency = 1
+albedo_color = Color(1.0, 0.92, 0.55, 0.65)
+emission_enabled = true
+emission = Color(0.6, 0.45, 0.15, 1)
+emission_energy_multiplier = 0.6
+roughness = 1.0
+
+[sub_resource type="BoxShape3D" id="Box_click"]
+size = Vector3(3, 0.4, 3)
+
+[node name="BuildPlot" type="Node3D"]
+script = ExtResource("1_plot")
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("Plane_marker")
+material_override = SubResource("Mat_marker")
+
+[node name="HoverHighlight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.05, 0, 0, 0, 1, 0, 0, 0, 1.05, 0, 0.03, 0)
+mesh = SubResource("Plane_marker")
+material_override = SubResource("Mat_hover")
+
+[node name="ClickArea" type="Area3D" parent="."]
+input_ray_pickable = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+shape = SubResource("Box_click")

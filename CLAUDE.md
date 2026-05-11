@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone B — First building (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Milestone A complete (2026-05-11) — verified end-to-end by user: F5 boots to main menu, New Game loads world, camera orbit/pan/zoom work, Esc returns to menu, Quit exits. Starting Milestone B with the foundations: `GameState` and `EventBus` autoloads, plus a `TopBar` HUD showing the wood count.
+**Most recent task:** Build flow landed (2026-05-11): pre-placed Campfire at world center, 3 clickable BuildPlot instances around it, BuildMenu modal in HUD, Tent placeholder scene. Click a plot → menu opens with cost, Build button auto-disables when broke, confirm spends 20 wood and replaces the plot with the Tent. F1/F2 debug keys still in place for poking wood.
 
-**Next task:** After this commit lands, F5-verify that the top bar appears in the world scene showing "Wood: 25". Then: clickable building plots on the map.
+**Next task:** F5-verify the full loop: 3 yellow plot markers visible, hover highlights, click opens menu, Build greys out at <20 wood, F2 to spend down to confirm greying, F1 to add back up, build a tent and watch the plot disappear. Once verified, the remaining Milestone B work is small (mostly polish + sound). After that, Milestone C (villagers).
 
 ---
 
