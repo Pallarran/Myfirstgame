@@ -12,7 +12,19 @@ extends Node3D
 const MAIN_MENU_PATH: String = "res://scenes/main_menu.tscn"
 const DEBUG_WOOD_DELTA: int = 5
 
+const VILLAGER_SCENE: PackedScene = preload("res://scenes/villagers/villager.tscn")
+
+# Starter villagers (per VERTICAL_SLICE_PRD.md: 3 pre-named villagers at game
+# start). Positions cluster around the campfire; the wandering AI will spread
+# them out from there on its own.
+const STARTER_VILLAGERS: Array = [
+	{"name": "Bram", "position": Vector3(1.5, 0.0, 0.8)},
+	{"name": "Edda", "position": Vector3(-1.2, 0.0, 1.5)},
+	{"name": "Cuth", "position": Vector3(-0.4, 0.0, -1.8)},
+]
+
 @onready var _plots_root: Node3D = $BuildPlots
+@onready var _villagers_root: Node3D = $Villagers
 @onready var _build_menu: Control = $HUD/BuildMenu
 
 func _ready() -> void:
@@ -20,6 +32,14 @@ func _ready() -> void:
 	for plot in _plots_root.get_children():
 		if plot.has_signal("clicked"):
 			plot.clicked.connect(_on_plot_clicked)
+	for data in STARTER_VILLAGERS:
+		_spawn_villager(data["name"], data["position"])
+
+func _spawn_villager(villager_name: String, spawn_position: Vector3) -> void:
+	var villager: Node3D = VILLAGER_SCENE.instantiate()
+	villager.position = spawn_position
+	villager.villager_name = villager_name
+	_villagers_root.add_child(villager)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey and event.pressed and not event.echo):

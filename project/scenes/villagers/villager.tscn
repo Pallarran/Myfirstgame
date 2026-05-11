@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/villager.gd" id="1_villager"]
+
+[sub_resource type="CapsuleMesh" id="Cap_body"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="Mat_body"]
+albedo_color = Color(0.55, 0.45, 0.35, 1)
+roughness = 0.9
+
+[node name="Villager" type="Node3D"]
+script = ExtResource("1_villager")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("Cap_body")
+material_override = SubResource("Mat_body")
+
+[node name="NameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35, 0)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+pixel_size = 0.005
+text = "Villager"
+font_size = 28
+outline_size = 6
+modulate = Color(0.98, 0.96, 0.88, 1)
+outline_modulate = Color(0, 0, 0, 0.7)

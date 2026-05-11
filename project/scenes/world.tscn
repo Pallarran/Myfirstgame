@@ -133,6 +133,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
 [node name="Plot3" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
 
+[node name="Villagers" type="Node3D" parent="."]
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="TopBar" parent="HUD" instance=ExtResource("3_topbar")]

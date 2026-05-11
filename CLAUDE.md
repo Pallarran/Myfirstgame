@@ -111,11 +111,11 @@ To export a Windows build: see `README.md` (TBD).
 
 > **Update this section every session.** This is the single most useful thing for Claude Code.
 
-**Current milestone:** Milestone B — First building (per VERTICAL_SLICE_PRD.md).
+**Current milestone:** Milestone C — Villagers (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Build flow landed (2026-05-11): pre-placed Campfire at world center, 3 clickable BuildPlot instances around it, BuildMenu modal in HUD, Tent placeholder scene. Click a plot → menu opens with cost, Build button auto-disables when broke, confirm spends 20 wood and replaces the plot with the Tent. F1/F2 debug keys still in place for poking wood.
+**Most recent task:** Milestone B complete (2026-05-11), verified by user. Starting Milestone C with first chunk: 3 pre-named starter villagers (Bram, Edda, Cuth) spawn near the campfire on game start with placeholder capsule bodies and floating Label3D names. Each villager wanders on simple direct-movement AI (no pathfinding). GameState now tracks `current_population` / `max_population` (Campfire houses 3; each Tent will add 2 once C-2 wires it). TopBar shows `Pop: 3 / 3`.
 
-**Next task:** F5-verify the full loop: 3 yellow plot markers visible, hover highlights, click opens menu, Build greys out at <20 wood, F2 to spend down to confirm greying, F1 to add back up, build a tent and watch the plot disappear. Once verified, the remaining Milestone B work is small (mostly polish + sound). After that, Milestone C (villagers).
+**Next task:** F5-verify three named villagers appear near the fire, wander around, names billboard toward the camera, top bar shows "Pop: 3 / 3". After that: building a Tent should bump max housing and trigger a 4th villager to arrive (chunk C-2). Then click-a-villager info card (chunk C-3).
 
 ---
 
