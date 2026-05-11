@@ -95,13 +95,16 @@ func _on_build_confirmed(plot: Node3D) -> void:
 	# Safety net: the menu disables Build when broke, but spend_wood double-checks.
 	if not GameState.spend_wood(form.wood_cost):
 		return
-	var building_scene: PackedScene = load(form.building_scene_path)
-	var building: Node3D = building_scene.instantiate()
-	building.transform = plot.transform
-	plot.get_parent().add_child(building)
-	plot.queue_free()
+	# Plot now persists post-build (it owns the building + camouflage). Per
+	# MAP_SPECIFICATION.md §10 the plot is the long-lived state container.
+	var building: Node3D = plot.build_form()
+	if building == null:
+		return
+	if building.has_method("set_plot"):
+		building.set_plot(plot)
 	# Gathering buildings get a small floating worker panel that hovers
-	# above them in screen space. Tents don't have workers and stay clean.
+	# above them in screen space. Tents/Elder's Tent don't have workers
+	# and get their floating panel from R-5 (the combined level+workers UI).
 	if building.has_signal("workers_changed"):
 		var panel: Control = WORKER_PANEL_SCENE.instantiate()
 		_hud.add_child(panel)
@@ -110,4 +113,6 @@ func _on_build_confirmed(plot: Node3D) -> void:
 	if form.housing_provided > 0:
 		GameState.add_housing(form.housing_provided)
 	if form.attracts_villager:
-		_spawn_immigrant_near(building.position)
+		# Use the plot's global_position now that the building is a child of
+		# the plot (building.position would be local-zero relative to plot).
+		_spawn_immigrant_near(plot.global_position)

@@ -18,6 +18,9 @@ signal wood_changed(new_amount: int)
 @warning_ignore("unused_signal")
 signal food_changed(new_amount: int)
 
+@warning_ignore("unused_signal")
+signal water_changed(new_amount: int)
+
 # --- Population ----------------------------------------------------------
 @warning_ignore("unused_signal")
 signal population_changed(current_pop: int, max_pop: int)

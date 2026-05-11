@@ -36,6 +36,7 @@ var current_level: int = 1
 var current_building_instance: Node3D = null
 var current_camouflage_instance: Node3D = null
 
+@onready var _marker: MeshInstance3D = $Marker
 @onready var _hover: MeshInstance3D = $HoverHighlight
 @onready var _area: Area3D = $ClickArea
 
@@ -50,6 +51,70 @@ func current_form() -> Form:
 	if lineage == null or lineage.forms.is_empty():
 		return null
 	return lineage.forms[current_form_index]
+
+# Spawn the current form's building scene as a child of this plot. Hides the
+# unbuilt marker/hover/click visuals. Returns the spawned instance so callers
+# can wire signals (workers_changed, etc.).
+func build_form() -> Node3D:
+	var form: Form = current_form()
+	if form == null:
+		return null
+	var scene: PackedScene = load(form.building_scene_path)
+	if scene == null:
+		return null
+	var building: Node3D = scene.instantiate()
+	add_child(building)
+	current_building_instance = building
+	current_level = 1
+	activation_state = "Built"
+	_set_unbuilt_visuals_visible(false)
+	return building
+
+# Player-driven level up. Spends wood per the form's level_up_costs. Returns
+# true on success. Emits level_changed so listeners (visual swapper, producer
+# scaling refresh) can react.
+func try_level_up() -> bool:
+	if current_level >= 5:
+		return false
+	var form: Form = current_form()
+	if form == null:
+		return false
+	if current_level - 1 >= form.level_up_costs.size():
+		return false
+	var cost: int = form.level_up_costs[current_level - 1]
+	if not GameState.spend_wood(cost):
+		return false
+	current_level += 1
+	level_changed.emit(current_level)
+	return true
+
+# Output multiplier for the current level, looked up from the form's array.
+# Clamps to the array's bounds for safety.
+func current_level_multiplier() -> float:
+	var form: Form = current_form()
+	if form == null or form.level_output_multipliers.is_empty():
+		return 1.0
+	var idx: int = clampi(current_level - 1, 0, form.level_output_multipliers.size() - 1)
+	return form.level_output_multipliers[idx]
+
+# Cost of advancing to the next level. Returns -1 if at max or unavailable.
+func next_level_up_cost() -> int:
+	if current_level >= 5:
+		return -1
+	var form: Form = current_form()
+	if form == null:
+		return -1
+	if current_level - 1 >= form.level_up_costs.size():
+		return -1
+	return form.level_up_costs[current_level - 1]
+
+func _set_unbuilt_visuals_visible(value: bool) -> void:
+	if _marker != null:
+		_marker.visible = value
+	if _hover != null:
+		_hover.visible = false  # hover state is dynamic; reset on built
+	if _area != null:
+		_area.input_ray_pickable = value
 
 func _on_area_input(_camera: Node, event: InputEvent, _pos: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

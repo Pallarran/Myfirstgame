@@ -53,6 +53,28 @@ func spend_food(amount: int) -> bool:
 func can_afford_food(amount: int) -> bool:
 	return food >= amount
 
+# --- Water ---------------------------------------------------------------
+
+const STARTING_WATER: int = 0
+
+var water: int = STARTING_WATER
+
+func add_water(amount: int) -> void:
+	if amount <= 0:
+		return
+	water += amount
+	EventBus.water_changed.emit(water)
+
+func spend_water(amount: int) -> bool:
+	if amount <= 0 or water < amount:
+		return false
+	water -= amount
+	EventBus.water_changed.emit(water)
+	return true
+
+func can_afford_water(amount: int) -> bool:
+	return water >= amount
+
 # --- Population ----------------------------------------------------------
 
 # The Campfire houses the starting villagers; each Tent adds TENT_HOUSING.

@@ -1,16 +1,21 @@
-# Shared script for gathering buildings (Woodcutter, Forager).
+# Shared script for gathering buildings (Woodcutter, Forager, Water Carrier).
 #
-# Drives auto-production on a fixed cadence: every `production_interval`
-# seconds, adds (`production_amount` × `current_workers`) of `resource_type`
-# to GameState. Production pauses when current_workers == 0.
+# Drives auto-production on a fixed cadence. When staffed, every
+# `production_interval` seconds the building adds:
+#   production_amount × level_multiplier × current_workers
+# of its `resource_type` to GameState. Fractional output is held in a small
+# accumulator and emitted as whole units, so a 1.25× multiplier produces
+# 1 wood per tick four times then 2 wood on the fifth tick.
 #
-# Worker assignment is count-based (no per-villager identity) and is
-# managed by the building_info_panel via try_assign / try_unassign.
-# Buildings emit `clicked(self)` on left-click so world.gd can open the
-# panel.
+# Click-to-boost: clicking the structure adds BOOST_AMOUNT × level_multiplier
+# of the resource instantly with a floating "+N" text. No cooldown. Requires
+# at least one worker; unstaffed buildings ignore boost clicks.
 #
-# Each scene sets resource_type / production_amount / production_interval /
-# max_workers on the root node.
+# Worker assignment is count-based (no per-villager identity), managed via
+# the floating worker panel that calls try_assign / try_unassign.
+#
+# `_plot` is set by world.gd via `set_plot()` right after instantiation so
+# we can read the plot's current_level for output scaling.
 extends Node3D
 
 signal clicked(building: Node3D)
@@ -18,37 +23,43 @@ signal workers_changed(current: int, max: int)
 
 const FLOATING_TEXT_SCENE: PackedScene = preload("res://ui/floating_text_3d.tscn")
 
-# Click-to-boost: clicking a staffed gathering building gives a small
-# instant burst. No cooldown — spam-clicking just means more bursts.
 const BOOST_AMOUNT: int = 2
 
-@export_enum("wood", "food") var resource_type: String = "wood"
+@export_enum("wood", "food", "water") var resource_type: String = "wood"
 @export var production_amount: int = 1
 @export var production_interval: float = 8.0
 @export var max_workers: int = 1
 
 var current_workers: int = 0
-var _accumulator: float = 0.0
+
+var _plot: Node3D = null
+var _tick_accumulator: float = 0.0
+var _output_accumulator: float = 0.0  # fractional output, emitted as ints
 
 @onready var _area: Area3D = $ClickArea
 
 func _ready() -> void:
 	_area.input_event.connect(_on_area_input)
 
+func set_plot(plot: Node3D) -> void:
+	_plot = plot
+
 func _process(delta: float) -> void:
 	if current_workers <= 0:
 		return
-	_accumulator += delta
-	if _accumulator >= production_interval:
-		_accumulator -= production_interval
-		var produced: int = production_amount * current_workers
-		match resource_type:
-			"wood":
-				GameState.add_wood(produced)
-			"food":
-				GameState.add_food(produced)
+	_tick_accumulator += delta
+	if _tick_accumulator >= production_interval:
+		_tick_accumulator -= production_interval
+		var level_mult: float = 1.0
+		if _plot != null and _plot.has_method("current_level_multiplier"):
+			level_mult = _plot.current_level_multiplier()
+		_output_accumulator += production_amount * level_mult * float(current_workers)
+		var whole: int = int(_output_accumulator)
+		if whole > 0:
+			_output_accumulator -= whole
+			_grant_resource(whole)
 
-# --- Worker assignment (called by building_info_panel) -------------------
+# --- Worker assignment (called by the floating worker panel) -------------
 
 func try_assign() -> bool:
 	if current_workers >= max_workers:
@@ -77,15 +88,26 @@ func _on_area_input(_camera: Node, event: InputEvent, _pos: Vector3, _normal: Ve
 
 func _try_boost() -> void:
 	if current_workers <= 0:
-		return  # unstaffed buildings can't be boosted — nothing to encourage
+		return
+	var level_mult: float = 1.0
+	if _plot != null and _plot.has_method("current_level_multiplier"):
+		level_mult = _plot.current_level_multiplier()
+	var amount: int = int(round(BOOST_AMOUNT * level_mult))
+	if amount <= 0:
+		return
+	_grant_resource(amount)
+	_spawn_boost_text(amount)
+
+func _grant_resource(amount: int) -> void:
 	match resource_type:
 		"wood":
-			GameState.add_wood(BOOST_AMOUNT)
+			GameState.add_wood(amount)
 		"food":
-			GameState.add_food(BOOST_AMOUNT)
-	_spawn_boost_text()
+			GameState.add_food(amount)
+		"water":
+			GameState.add_water(amount)
 
-func _spawn_boost_text() -> void:
+func _spawn_boost_text(amount: int) -> void:
 	var text: Label3D = FLOATING_TEXT_SCENE.instantiate()
-	text.text = "+%d %s" % [BOOST_AMOUNT, resource_type]
+	text.text = "+%d %s" % [amount, resource_type]
 	add_child(text)
