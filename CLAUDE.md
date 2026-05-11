@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunk D-2 landed (2026-05-11). Worker assignment, count-based per memory `villagers-are-anonymous`. GameState tracks `workers_assigned` and exposes `idle_population()`; EventBus emits `workers_changed(assigned, total)`. TopBar shows `Idle: N`. producer.gd now scales production by `current_workers` and pauses at 0 workers; gathering buildings only tick when staffed. Each Woodcutter/Forager has an Area3D ClickArea and emits `clicked(self)` → world routes to `ui/building_info_panel.tscn`. The panel shows worker count `N / max`, +/- buttons (auto-disable at limits), and a production-rate flavor line. Esc closes. Tents stay non-interactive (no workers).
+**Most recent task:** D-2 UX swap (2026-05-11). Replaced the click-to-open modal with a small **always-visible floating panel** above each gathering building, per user preference. `ui/worker_panel.tscn` + `scripts/worker_panel.gd`: HBox with [−] [N / max] [+], anchored ANCHOR_HEIGHT=4 world units above the building origin, position recomputed every frame via `camera.unproject_position`. Buttons auto-disable at limits. Each Woodcutter/Forager build spawns a panel into the HUD. The producer's click signal stays in place (reserved for click-to-boost in D-3). Memory `inline-ui-over-modals` captures the preference.
 
-**Next task:** F5-verify: build a Woodcutter → it does *not* produce anything until you click it and press +. Idle drops from 3 to 2, Workers shows 1/1, wood starts ticking. Press - to unassign, production stops. Build a Tent → Idle goes up by 1 (new immigrant). Then D-3 (click-to-boost on staffed gathering buildings) and D-4 (food consumption per villager).
+**Next task:** F5-verify the floating panel: every Woodcutter/Forager has one above it; orbit/zoom keeps it tracking. Buttons assign/unassign correctly. Then D-3 (click-to-boost on staffed gathering buildings — short bonus burst with feedback) and D-4 (food consumption per villager).
 
 ---
 

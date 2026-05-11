@@ -17,6 +17,7 @@ const MAIN_MENU_PATH: String = "res://scenes/main_menu.tscn"
 const DEBUG_WOOD_DELTA: int = 5
 
 const VILLAGER_SCENE: PackedScene = preload("res://scenes/villagers/villager.tscn")
+const WORKER_PANEL_SCENE: PackedScene = preload("res://ui/worker_panel.tscn")
 
 # Starter villager spawn positions cluster near the campfire; the wandering
 # AI spreads them out from there.
@@ -28,8 +29,8 @@ const STARTER_VILLAGER_POSITIONS: Array = [
 
 @onready var _plots_root: Node3D = $BuildPlots
 @onready var _villagers_root: Node3D = $Villagers
+@onready var _hud: CanvasLayer = $HUD
 @onready var _build_menu: Control = $HUD/BuildMenu
-@onready var _building_panel: Control = $HUD/BuildingInfoPanel
 
 func _ready() -> void:
 	_build_menu.confirmed.connect(_on_build_confirmed)
@@ -75,14 +76,14 @@ func _on_build_confirmed(plot: Node3D) -> void:
 	building.transform = plot.transform
 	plot.get_parent().add_child(building)
 	plot.queue_free()
-	# Gathering buildings (Woodcutter, Forager) emit `clicked` for the
-	# building info panel. Tents don't have workers and stay non-interactive.
-	if building.has_signal("clicked"):
-		building.clicked.connect(_on_building_clicked)
+	# Gathering buildings get a small floating worker panel that hovers
+	# above them in screen space. Tents don't have workers and stay clean.
+	if building.has_signal("workers_changed"):
+		var panel: Control = WORKER_PANEL_SCENE.instantiate()
+		_hud.add_child(panel)
+		panel.bind_to(building)
+		building.workers_changed.connect(func(_c, _m): panel._refresh())
 	if bt.housing_provided > 0:
 		GameState.add_housing(bt.housing_provided)
 	if bt.attracts_villager:
 		_spawn_immigrant_near(building.position)
-
-func _on_building_clicked(building: Node3D) -> void:
-	_building_panel.open_for(building)
