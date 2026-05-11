@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/fence.glb" id="1_fence"]
+[ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/patch-grass.glb" id="2_grass"]
+
+[node name="TentCamouflage" type="Node3D"]
+
+[node name="Fence" parent="." instance=ExtResource("1_fence")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 5, 0, 0)
+
+[node name="GrassPatch" parent="." instance=ExtResource("2_grass")]
+transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, -3, 0, -5)

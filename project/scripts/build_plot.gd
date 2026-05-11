@@ -68,6 +68,19 @@ func build_form() -> Node3D:
 	current_level = 1
 	activation_state = "Built"
 	_set_unbuilt_visuals_visible(false)
+	# Camouflage: persistent props that fill the plot's reserved space at
+	# small forms (MAP_SPECIFICATION.md §5). Same lifetime as the building.
+	if form.camouflage_scene_path != "":
+		var cam_scene: PackedScene = load(form.camouflage_scene_path)
+		if cam_scene != null:
+			var cam: Node3D = cam_scene.instantiate()
+			add_child(cam)
+			current_camouflage_instance = cam
+	# Wire the level-up signal into the building's set_level so visual
+	# layers toggle as the player upgrades. Sync the initial state.
+	if building.has_method("set_level"):
+		level_changed.connect(building.set_level)
+		building.set_level(current_level)
 	return building
 
 # Player-driven level up. Spends wood per the form's level_up_costs. Returns

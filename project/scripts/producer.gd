@@ -44,6 +44,14 @@ func _ready() -> void:
 func set_plot(plot: Node3D) -> void:
 	_plot = plot
 
+# Toggles child LxProps containers to match the given level. Same shape as
+# form_root.gd.set_level so the plot can wire either script identically.
+func set_level(level: int) -> void:
+	for i in range(2, 6):
+		var node_name: String = "L%dProps" % i
+		if has_node(node_name):
+			get_node(node_name).visible = level >= i
+
 func _process(delta: float) -> void:
 	if current_workers <= 0:
 		return
