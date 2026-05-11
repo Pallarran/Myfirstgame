@@ -63,6 +63,8 @@ func _ready() -> void:
 	var pending: Dictionary = SaveSystem.consume_pending_load()
 	if not pending.is_empty():
 		_apply_pending_load(pending)
+	# Start ambient music. Silent if no file is dropped yet.
+	AudioManager.play_music(AudioManager.MUSIC_PATH_AMBIENT_CAMP)
 
 func _process(delta: float) -> void:
 	_food_tick_accumulator += delta
@@ -208,3 +210,6 @@ func _do_build(plot: Node3D, charge_cost: bool) -> void:
 	# Notify the feed (Heart auto-build also fires this; for slice 1 a "Camp
 	# established" line at game start is friendly rather than noisy).
 	EventBus.building_constructed.emit(form.display_name)
+	# Audio feedback — silent if the file doesn't exist yet.
+	if charge_cost:  # don't ding on the Heart's auto-build at game start
+		AudioManager.play_sfx("build_complete")

@@ -55,6 +55,7 @@ func _push(text: String) -> void:
 	_stack.add_child(panel)
 	_stack.move_child(panel, 0)  # newest on top
 	_schedule_fade(panel)
+	AudioManager.play_sfx("notification")
 
 func _build_notification_panel(text: String) -> PanelContainer:
 	var panel := PanelContainer.new()

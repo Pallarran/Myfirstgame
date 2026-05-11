@@ -105,6 +105,7 @@ func _try_boost() -> void:
 		return
 	_grant_resource(amount)
 	_spawn_boost_text(amount)
+	AudioManager.play_sfx("boost")
 
 func _grant_resource(amount: int) -> void:
 	match resource_type:
