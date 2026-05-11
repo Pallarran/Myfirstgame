@@ -133,11 +133,11 @@ To export a Windows build: see `README.md` (TBD).
 
 > **Update this section every session.** Highest-leverage habit for working with Claude Code.
 
-**Current milestone:** Milestone A — Empty world (per VERTICAL_SLICE_PRD.md).
+**Current milestone:** Slice 1 — Milestone E (polish: day/night, audio, save/load, tutorial). Foundations through Milestone D are already shipped.
 
-**Most recent task:** Design documents updated to v2 (lineage system, emergent tiers, magic split).
+**Most recent task:** Lineage system retrofit complete (R-1 through R-6, 2026-05-11). Slice 1 is on the new Lineage → Form → Levels foundation per VISION_PRD.md v2, PLOT_LINEAGES.md, MAP_SPECIFICATION.md. 7 plots on the map-spec layout (Heart auto-built; Chief/Wood/Forage/Stream/2×Housing buildable). 5 visible levels per form with Kenney prop-stacking. Anchor-and-grow with per-form camouflage. Combined floating worker+level panel above each built plot. Water resource produced by Stream, stockpiles in TopBar. Villagers stay anonymous (slice PRD's info card explicitly overridden — see memory).
 
-**Next task:** Phase 0 — install Godot 4, complete official 3D tutorial, set up Git and GitHub repo.
+**Next task:** F5 + verify the new layout end-to-end (Heart pre-built with campfire-pit + camouflage; build each of the 6 plots; level each up 1→5 spending wood; producers scale output with level; Water Carrier Post fills the Water counter). Then Milestone E begins: day/night cycle, diegetic audio, ambient music, notification feed, save/load, tutorial.
 
 ---
 
