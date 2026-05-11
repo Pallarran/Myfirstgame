@@ -1,0 +1,44 @@
+# Auto-detect text files and normalize line endings to LF in the repository.
+# Working tree gets native line endings (CRLF on Windows, LF elsewhere).
+* text=auto
+
+# Godot text formats
+*.gd        text eol=lf
+*.tscn      text eol=lf
+*.tres      text eol=lf
+*.godot     text eol=lf
+*.cfg       text eol=lf
+*.import    text eol=lf
+
+# Common text formats
+*.md        text
+*.json      text
+*.txt       text
+*.xml       text
+*.csv       text
+
+# Common binary assets (never normalize)
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.webp      binary
+*.tga       binary
+*.bmp       binary
+*.ico       binary
+*.svg       text
+*.wav       binary
+*.ogg       binary
+*.mp3       binary
+*.flac      binary
+*.glb       binary
+*.gltf      text
+*.fbx       binary
+*.obj       text
+*.blend     binary
+*.exr       binary
+*.hdr       binary
+*.ttf       binary
+*.otf       binary
+*.woff      binary
+*.woff2     binary

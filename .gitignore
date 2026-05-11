@@ -1,0 +1,40 @@
+# --- Godot 4 ---
+# Cache and import data. Regenerated automatically by the editor; never commit.
+project/.godot/
+project/.import/
+
+# Build artifacts and export configs (export_presets.cfg may contain absolute paths
+# or platform-specific secrets; commit it manually only if you've reviewed it)
+project/export.cfg
+project/export_presets.cfg
+
+# Auto-generated translation binaries
+project/*.translation
+
+# Local builds (matches CLAUDE.md "builds/ is gitignored")
+builds/
+
+# Mono / .NET (unused for now, but harmless to ignore preemptively)
+project/.mono/
+project/data_*/
+project/mono_crash.*.json
+
+# --- OS junk ---
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# --- Editor/IDE junk ---
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- Claude Code session files (if any land in-tree) ---
+.claude/
