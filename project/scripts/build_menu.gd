@@ -1,13 +1,13 @@
 # Modal panel shown when the player clicks a build plot.
 #
-# The menu reads the building name and cost from the plot itself, checks
-# affordability via GameState, and stays in sync with wood changes (so if
-# the player gains/loses wood while the menu is open, the Build button
-# enables/disables live).
+# Reads the plot's `building_type` Resource for the display name and wood
+# cost, then keeps the Build button in sync with GameState.wood (signals
+# the live enable/disable behavior as the player gains/spends wood while
+# the menu is open).
 #
-# Emits `confirmed(plot)` when the player clicks Build, `cancelled` when
-# they click Cancel. The world script handles the actual construction
-# (spend wood, swap the plot for the building) on confirmed.
+# Emits `confirmed(plot)` on Build, `cancelled` on Cancel. The world
+# script handles construction (spend wood, swap plot for building) on
+# confirmed.
 extends Control
 
 signal confirmed(plot: Node3D)
@@ -29,8 +29,9 @@ func _ready() -> void:
 
 func open_for(plot: Node3D) -> void:
 	_plot = plot
-	_title_label.text = "Build %s" % plot.BUILDING_NAME
-	_cost_label.text = "Cost: %d wood" % plot.BUILDING_COST
+	var bt: BuildingType = plot.building_type
+	_title_label.text = "Build %s" % bt.display_name
+	_cost_label.text = "Cost: %d wood" % bt.wood_cost
 	_refresh_affordability()
 	visible = true
 
@@ -41,7 +42,7 @@ func close_menu() -> void:
 func _refresh_affordability() -> void:
 	if _plot == null:
 		return
-	var can_afford: bool = GameState.can_afford_wood(_plot.BUILDING_COST)
+	var can_afford: bool = GameState.can_afford_wood(_plot.building_type.wood_cost)
 	_build_button.disabled = not can_afford
 	_status_label.text = "" if can_afford else "Not enough wood."
 

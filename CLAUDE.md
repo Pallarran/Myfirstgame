@@ -111,11 +111,11 @@ To export a Windows build: see `README.md` (TBD).
 
 > **Update this section every session.** This is the single most useful thing for Claude Code.
 
-**Current milestone:** Milestone C — Villagers (per VERTICAL_SLICE_PRD.md).
+**Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunk C-3 reverted (2026-05-11). Villagers in this project are anonymous — no name, age, trait, job, info card, or click handling. Identity is *not* a feature in this slice or the long-term vision; villagers are part of the population number, not individuals. See memory: `villagers-are-anonymous`. Pre-C-3 state restored: wander only, three starters near campfire, Tent build still spawns an immigrant (unnamed) and bumps housing.
+**Most recent task:** Chunk D-1 landed (2026-05-11). Food resource added (GameState.food / food_changed signal / TopBar Food: X). Building data refactored from hardcoded constants on the plot to a **BuildingType Resource catalog** in `project/data/buildings/` — `tent.tres`, `woodcutter.tres`, `forager.tres`. BuildPlot now @exports a `building_type: BuildingType`; world.tscn sets it per plot. Woodcutter (`scenes/buildings/woodcutter.tscn`) and Forager (`scenes/buildings/forager.tscn`) added with Kenney placeholders, both running `scripts/producer.gd` for auto-production every 8s (no worker assignment yet — D-2). World now has 5 plots: 3 Tent, 1 Woodcutter, 1 Forager.
 
-**Next task:** Milestone C is complete (in the form the project actually wants — no info card). Milestone D is next: Woodcutter + Forager + worker assignment + click-to-boost + food consumption. Worker assignment will need a way to indicate "this villager works here", which still doesn't require surfacing identity — likely a count-of-workers per building.
+**Next task:** F5-verify: top bar shows Wood/Food/Pop, building a Woodcutter starts +1 wood every 8s, Forager +1 food every 8s, Tent flow still adds housing + immigrant. Then chunks D-2 (worker assignment — count-based per memory), D-3 (click-to-boost on gathering buildings), D-4 (food consumption per villager).
 
 ---
 

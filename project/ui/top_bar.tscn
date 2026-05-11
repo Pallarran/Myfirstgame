@@ -47,6 +47,12 @@ text = "Wood: 0"
 theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.92, 0.88, 0.78, 1)
 
+[node name="FoodLabel" type="Label" parent="Panel/Margin/HBox"]
+layout_mode = 2
+text = "Food: 0"
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.95, 0.82, 0.7, 1)
+
 [node name="PopLabel" type="Label" parent="Panel/Margin/HBox"]
 layout_mode = 2
 text = "Pop: 0 / 0"

@@ -3,20 +3,19 @@
 # Players never place buildings freely (design pillar #2 — "No spatial puzzle").
 # They choose *what* and *when*; *where* is decided here in the scene by us.
 #
+# Each plot scene instance carries a `building_type` Resource reference that
+# defines what gets built there (Tent, Woodcutter's lean-to, Forager's hut).
+# Set `building_type` per-instance in the world scene; the plot reads it for
+# its hover color cue and the build menu reads it for cost/name/etc.
+#
 # Behavior:
 #   - Hover: shows a subtle highlight rectangle over the marker.
 #   - Click: emits `clicked(self)` so the world can react (open build menu).
-#
-# Building info is currently hardcoded constants (Tent only). When the slice
-# adds Woodcutter and Forager, this should move to a BuildingType resource
-# catalog in project/data/buildings/*.tres, per CLAUDE.md "Data over code".
 extends Node3D
 
 signal clicked(plot: Node3D)
 
-const BUILDING_NAME: String = "Tent"
-const BUILDING_COST: int = 20
-const BUILDING_SCENE_PATH: String = "res://scenes/buildings/tent.tscn"
+@export var building_type: BuildingType
 
 @onready var _hover: MeshInstance3D = $HoverHighlight
 @onready var _area: Area3D = $ClickArea

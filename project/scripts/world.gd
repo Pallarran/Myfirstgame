@@ -65,18 +65,16 @@ func _on_plot_clicked(plot: Node3D) -> void:
 	_build_menu.open_for(plot)
 
 func _on_build_confirmed(plot: Node3D) -> void:
+	var bt: BuildingType = plot.building_type
 	# Safety net: the menu disables Build when broke, but spend_wood double-checks.
-	if not GameState.spend_wood(plot.BUILDING_COST):
+	if not GameState.spend_wood(bt.wood_cost):
 		return
-	var building_scene: PackedScene = load(plot.BUILDING_SCENE_PATH)
+	var building_scene: PackedScene = load(bt.building_scene_path)
 	var building: Node3D = building_scene.instantiate()
 	building.transform = plot.transform
 	plot.get_parent().add_child(building)
 	plot.queue_free()
-	# Tent-specific: bump housing and attract an immigrant. When Woodcutter/
-	# Forager arrive in Milestone D, this branch will move into a building-
-	# type catalog. Hardcoded on BUILDING_NAME for now since Tent is the only
-	# buildable type.
-	if plot.BUILDING_NAME == "Tent":
-		GameState.add_housing(GameState.TENT_HOUSING)
+	if bt.housing_provided > 0:
+		GameState.add_housing(bt.housing_provided)
+	if bt.attracts_villager:
 		_spawn_immigrant_near(building.position)

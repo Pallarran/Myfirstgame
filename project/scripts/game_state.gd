@@ -31,6 +31,28 @@ func spend_wood(amount: int) -> bool:
 func can_afford_wood(amount: int) -> bool:
 	return wood >= amount
 
+# --- Food ----------------------------------------------------------------
+
+const STARTING_FOOD: int = 30  # a small buffer so the camp doesn't starve on day 1
+
+var food: int = STARTING_FOOD
+
+func add_food(amount: int) -> void:
+	if amount <= 0:
+		return
+	food += amount
+	EventBus.food_changed.emit(food)
+
+func spend_food(amount: int) -> bool:
+	if amount <= 0 or food < amount:
+		return false
+	food -= amount
+	EventBus.food_changed.emit(food)
+	return true
+
+func can_afford_food(amount: int) -> bool:
+	return food >= amount
+
 # --- Population ----------------------------------------------------------
 
 # The Campfire houses the starting villagers; each Tent adds TENT_HOUSING.

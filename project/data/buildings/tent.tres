@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="BuildingType" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/building_type.gd" id="1_bt"]
+
+[resource]
+script = ExtResource("1_bt")
+display_name = "Tent"
+wood_cost = 20
+building_scene_path = "res://scenes/buildings/tent.tscn"
+housing_provided = 2
+attracts_villager = true
+produces = "none"
+production_amount = 1
+production_interval = 8.0
