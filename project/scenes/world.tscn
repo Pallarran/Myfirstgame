@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" path="res://ui/top_bar.tscn" id="3_topbar"]
 [ext_resource type="PackedScene" path="res://scenes/build_plot.tscn" id="4_plot"]
 [ext_resource type="PackedScene" path="res://ui/build_menu.tscn" id="5_menu"]
-[ext_resource type="Resource" path="res://data/buildings/tent.tres" id="5a_bt_tent"]
-[ext_resource type="Resource" path="res://data/buildings/woodcutter.tres" id="5b_bt_wood"]
-[ext_resource type="Resource" path="res://data/buildings/forager.tres" id="5c_bt_food"]
+[ext_resource type="Resource" path="res://data/lineages/housing.tres" id="5a_lin_housing"]
+[ext_resource type="Resource" path="res://data/lineages/forest_wood.tres" id="5b_lin_wood"]
+[ext_resource type="Resource" path="res://data/lineages/forest_forage.tres" id="5c_lin_forage"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_survival-kit/Models/GLB format/campfire-pit.glb" id="6_campfire"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_default.glb" id="7_tree_default"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_nature-kit/Models/GLTF format/tree_oak.glb" id="8_tree_oak"]
@@ -128,23 +128,23 @@ omni_attenuation = 1.4
 
 [node name="TentPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -4)
-building_type = ExtResource("5a_bt_tent")
+lineage = ExtResource("5a_lin_housing")
 
 [node name="TentPlot2" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 4)
-building_type = ExtResource("5a_bt_tent")
+lineage = ExtResource("5a_lin_housing")
 
 [node name="TentPlot3" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -2)
-building_type = ExtResource("5a_bt_tent")
+lineage = ExtResource("5a_lin_housing")
 
 [node name="WoodcutterPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -1)
-building_type = ExtResource("5b_bt_wood")
+lineage = ExtResource("5b_lin_wood")
 
 [node name="ForagerPlot1" parent="BuildPlots" instance=ExtResource("4_plot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 5)
-building_type = ExtResource("5c_bt_food")
+lineage = ExtResource("5c_lin_forage")
 
 [node name="Villagers" type="Node3D" parent="."]
 

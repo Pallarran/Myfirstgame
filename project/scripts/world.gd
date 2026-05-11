@@ -91,11 +91,11 @@ func _on_plot_clicked(plot: Node3D) -> void:
 	_build_menu.open_for(plot)
 
 func _on_build_confirmed(plot: Node3D) -> void:
-	var bt: BuildingType = plot.building_type
+	var form: Form = plot.current_form()
 	# Safety net: the menu disables Build when broke, but spend_wood double-checks.
-	if not GameState.spend_wood(bt.wood_cost):
+	if not GameState.spend_wood(form.wood_cost):
 		return
-	var building_scene: PackedScene = load(bt.building_scene_path)
+	var building_scene: PackedScene = load(form.building_scene_path)
 	var building: Node3D = building_scene.instantiate()
 	building.transform = plot.transform
 	plot.get_parent().add_child(building)
@@ -107,7 +107,7 @@ func _on_build_confirmed(plot: Node3D) -> void:
 		_hud.add_child(panel)
 		panel.bind_to(building)
 		building.workers_changed.connect(func(_c, _m): panel._refresh())
-	if bt.housing_provided > 0:
-		GameState.add_housing(bt.housing_provided)
-	if bt.attracts_villager:
+	if form.housing_provided > 0:
+		GameState.add_housing(form.housing_provided)
+	if form.attracts_villager:
 		_spawn_immigrant_near(building.position)
