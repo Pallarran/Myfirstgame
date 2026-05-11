@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Lineage" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/lineage.gd" id="1_lineage"]
+[ext_resource type="Resource" path="res://data/forms/water_carrier_post.tres" id="2_post"]
+
+[resource]
+script = ExtResource("1_lineage")
+lineage_id = "stream"
+display_name = "Stream"
+role = "Water access, then milling and bathing in later slices. Becomes Mill, Bathhouse, Ornamental Fountain."
+forms = Array[Resource]([ExtResource("2_post")])

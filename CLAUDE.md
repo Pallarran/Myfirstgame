@@ -6,9 +6,12 @@ This file gives Claude Code the context it needs to work effectively in this rep
 
 ## Project: Hearthstead (working title)
 
-A chill, single-player medieval city-builder. The player guides one settlement through five visual tiers (Camp → Settlement → Town → City → Fortified City). Inspired by Hearth & Hamlet.
+A chill, single-player, **incremental** medieval citybuilder with **magical realism**. The player guides one settlement from camp to fortified city through dozens of small **in-place building evolutions** rather than gated tier-up events. Inspired by Hearth & Hamlet.
 
-**Current scope:** Vertical Slice 1 — Camp tier only. See `docs/VERTICAL_SLICE_PRD.md` for full slice spec, and `docs/VISION_PRD.md` for the long-term vision.
+**Reference docs (in order of authority):**
+- `docs/VISION_PRD.md` — long-term vision, the north star.
+- `docs/PLOT_LINEAGES.md` — authoritative catalog of all 14 plot lineages and their buildings.
+- `docs/VERTICAL_SLICE_PRD.md` — current near-term scope. **This is what we're building now.**
 
 **Developer experience level:** No prior coding experience. Learning Godot and game development through this project. Claude Code is the primary development partner. Explanations should be friendly and assume nothing, but not condescending.
 
@@ -19,23 +22,41 @@ A chill, single-player medieval city-builder. The player guides one settlement t
 - **Engine:** Godot 4 (latest stable on 4.x).
 - **Language:** GDScript.
 - **Version control:** Git, hosted on GitHub.
-- **Target platforms (slice 1):** Windows desktop, exported as a single executable. Linux/Mac later.
-- **Asset sources:** Placeholder art from Kenney.nl, Quaternius, and Synty Studios. No custom art during slice 1.
+- **Target platforms (slice 1):** Windows desktop. Linux/Mac later.
+- **Asset sources:** Kenney.nl, Quaternius, Synty Studios placeholders. No custom art during slice 1.
 - **Audio sources:** Royalty-free libraries (Freesound, Pixabay) for slice 1.
 
 ---
 
 ## Design Pillars (DO NOT VIOLATE)
 
-These are the rules that keep the game *chill*. If a feature contradicts them, push back before implementing it.
+If a feature contradicts these, push back before implementing.
 
-1. **Chill, not stressful.** No fail states that erase progress. No timers that punish breaks. Imbalance creates a soft nudge, not a crisis.
-2. **No spatial puzzle.** Players choose *what* and *when* to build. Building locations are pre-designed by the developer; players never decide *where*.
-3. **Visual progression is the headline reward.** Tier transitions are real moments with visual and audio celebration.
-4. **Engagement through optimization, not action.** Click-to-boost gathering and balancing chains are the engagement loop. Never reaction-time, never twitch.
-5. **Cozy aliveness.** Visible activity (haulers, workers walking, animals, smoke from chimneys), diegetic audio, named villagers. The settlement must feel alive.
+1. **Chill, not stressful.** No fail states that erase progress. Imbalance creates a soft nudge, not a crisis.
+2. **Incremental progression as core dopamine.** Constant small improvements. Players should always have something small to work toward.
+3. **No spatial puzzle.** Players choose *what* and *when* to build. Building locations are pre-designed; players never decide *where*.
+4. **Visual progression through in-place evolution.** Buildings level up in their existing location, then auto-evolve into their next-form when ready. Tiers (Camp/Settlement/Town/City/Fortified City) are descriptive labels emerging from the state of signature plots, not gates.
+5. **Engagement through optimization, not action.** Click-to-boost gathering and balancing chains. Never reaction-time.
+6. **Cozy aliveness.** Visible activity (haulers, workers, animals, smoke), diegetic audio, named villagers.
+7. **Magical realism, never high fantasy.** Magic is gentle, slow-acting, benevolent. Folk magic and rare spirits. No combat magic. No dragons or monsters.
 
-If asked to add a feature like "fail state on missing food," "free building placement," "real-time combat the player controls," or "fast-paced events": stop and ask. These violate pillars.
+If asked to add a feature like "fail state on missing food," "free building placement," "real-time combat the player controls," "battle spells," or "fast-paced events": stop and ask. These violate pillars.
+
+---
+
+## Key Concepts (Glossary)
+
+- **Plot:** A predetermined location on the map where buildings can exist. Plots are designed, not placed by the player.
+- **Lineage:** A sequence of building forms a plot progresses through across the game (e.g., Campfire → Communal Hearth → Market Square → Civic Plaza → Grand Plaza). There are 14 lineages total — see PLOT_LINEAGES.md.
+- **Form:** A specific building identity within a lineage (e.g., "Mayor's House" is form 3 of the Chief's Seat lineage).
+- **Level:** A progression step within a form, 1–5. Each level brings visible upgrade + ~+25% output.
+- **Evolution:** Auto-transition from one form to the next when a building reaches its threshold level (typically 5). Returns to level 1 of the new form.
+- **Signature evolution:** A celebrated evolution moment (camera focus, music swell, particle effect). ~10–15 of these across the full game.
+- **Tier descriptor:** The current state of the settlement (Camp/Settlement/Town/City/Fortified City), derived from the state of signature plots. Displayed in UI but not a gate.
+- **Blessings:** Area-of-effect buff produced by the Sacred Height lineage (Chapel → Cathedral). NOT a resource. Just an effect.
+- **Magic Crystals:** A stockpiled resource produced by the Grove lineage. Used to cast Spells.
+- **Spells:** Player-triggered settlement-wide effects, cast from the Spellbook UI at the Mage's Tower or above. Cost crystals.
+- **Policies:** Settlement-wide toggles unlocked by the Chief's Seat lineage. Set-and-forget decisions.
 
 ---
 
@@ -46,26 +67,26 @@ If asked to add a feature like "fail state on missing food," "free building plac
 ├── CLAUDE.md                    # This file
 ├── README.md                    # How to run, build, contribute
 ├── docs/
-│   ├── VISION_PRD.md            # Long-term vision (the north star)
-│   ├── VERTICAL_SLICE_PRD.md    # Current scope (what we're building)
-│   └── decisions/               # Decision log entries (one .md per decision)
+│   ├── VISION_PRD.md
+│   ├── PLOT_LINEAGES.md
+│   ├── VERTICAL_SLICE_PRD.md
+│   ├── JOURNAL.md               # Dev journal (your notes)
+│   └── decisions/               # One .md per significant decision
 ├── project/                     # Godot project root
 │   ├── project.godot
 │   ├── scenes/                  # All .tscn scene files
 │   ├── scripts/                 # All .gd script files
 │   ├── assets/
-│   │   ├── models/              # 3D models (placeholder + final)
+│   │   ├── models/
 │   │   ├── textures/
 │   │   ├── audio/
 │   │   │   ├── music/
 │   │   │   └── sfx/
 │   │   └── fonts/
-│   ├── data/                    # JSON or .tres resources defining buildings, villagers, etc.
+│   ├── data/                    # .tres / JSON for buildings, lineages, etc.
 │   └── ui/                      # UI scenes and themes
 └── builds/                      # Local export targets (gitignored)
 ```
-
-This structure is a starting point. Adjust as needed and update this file when you do.
 
 ---
 
@@ -75,33 +96,34 @@ This structure is a starting point. Adjust as needed and update this file when y
 - **Class names:** `PascalCase`.
 - **Variables and functions:** `snake_case`.
 - **Constants:** `SCREAMING_SNAKE_CASE`.
-- **Signals:** named as past-tense verbs (`building_completed`, `villager_hungry`).
-- **Comment policy:** every script starts with a one-paragraph comment explaining what it does and why. Inline comments for any non-obvious logic. Assume future-developer is a beginner.
-- **Function size:** keep functions short. If a function is over ~30 lines, consider splitting it.
-- **No magic numbers.** Use named constants (`MAX_VILLAGERS = 8`, not `if villagers.size() >= 8`).
-- **Data over code.** Building costs, villager traits, resource rates live in `.tres` resource files or JSON in `project/data/`, not hardcoded in scripts.
-- **Strings.** Even in slice 1, route player-visible strings through a single `Strings` autoload or constants file. Makes localization possible later.
+- **Signals:** past-tense verbs (`building_completed`, `villager_hungry`, `evolution_triggered`).
+- **Comments:** every script starts with a paragraph explaining what it does and why. Inline comments for non-obvious logic. Assume future-developer is a beginner.
+- **Function size:** keep functions short. Over ~30 lines → consider splitting.
+- **No magic numbers.** Use named constants.
+- **Data over code.** Lineage definitions, building stats, level costs, etc. live in `.tres` resource files or JSON in `project/data/`, not hardcoded in scripts.
+- **Strings.** Route player-visible strings through a `Strings` autoload or constants file from day one. Makes localization possible later.
 
 ---
 
 ## Architectural Guidance
 
-- **Use Godot's node-and-scene model idiomatically.** Don't try to build a "framework" on top of it. Scenes are the building blocks.
-- **Autoload singletons** for: `GameState` (current resources, time of day, etc.), `EventBus` (signals between unrelated systems), `SaveSystem`, `AudioManager`. Keep autoloads thin.
-- **Signals over direct references** when systems don't naturally own each other. A Woodcutter doesn't reach into `GameState.wood += 1`; it emits `wood_produced(amount)` on the EventBus.
-- **Saves:** JSON-based. Each system serializes its own state. Save format must be versioned from day one.
-- **Performance:** the slice has a max of 8 villagers and ~10 buildings. Premature optimization is not a concern. Write the clearest code, then profile if something stutters.
+- **Use Godot's node-and-scene model idiomatically.** Don't build frameworks on top of it.
+- **Autoload singletons** for: `GameState` (resources, time of day, tier descriptor), `EventBus` (signals between unrelated systems), `SaveSystem`, `AudioManager`, `Strings`. Keep them thin.
+- **Signals over direct references** when systems don't naturally own each other.
+- **Lineages are data, not code.** Each lineage is a `.tres` resource describing its forms, level thresholds, and outputs. The same building logic class handles all buildings; the resource tells it how to behave.
+- **Saves:** JSON-based. Each system serializes its own state. Save format versioned from day one.
+- **Performance:** the slice has ~8 villagers and ~10 buildings. Premature optimization not a concern.
 
 ---
 
 ## How to Run
 
-(Fill in as setup is completed. Until then:)
+(Fill in as setup is completed.)
 
 1. Install Godot 4.x from [godotengine.org](https://godotengine.org).
 2. Clone this repo: `git clone <repo-url>`.
 3. Open `project/project.godot` in Godot.
-4. Press F5 to run, or click the play button.
+4. Press F5 to run.
 
 To export a Windows build: see `README.md` (TBD).
 
@@ -109,37 +131,38 @@ To export a Windows build: see `README.md` (TBD).
 
 ## Currently Working On
 
-> **Update this section every session.** This is the single most useful thing for Claude Code.
+> **Update this section every session.** Highest-leverage habit for working with Claude Code.
 
-**Current milestone:** Milestone D — Production loop (per VERTICAL_SLICE_PRD.md).
+**Current milestone:** Milestone A — Empty world (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunks D-3 cooldown removed + D-4 food consumption landed (2026-05-11). Click-to-boost has no cooldown anymore — spam-clicking just produces more bursts (still gated on at least 1 worker assigned). Food tick: every 12s, each villager tries to eat 1 food. Villagers who miss enter `is_hungry=true` and walk at 55% speed; villagers who eat reset to `is_hungry=false`. Per `villagers-are-anonymous`, hunger surfaces only as a TopBar count ("Hungry: N", hidden when zero). `EventBus.hungry_changed` fires; `GameState.current_hungry` + `set_hungry_count()`. No death — Pillar #1, no fail states that erase progress.
+**Most recent task:** Design documents updated to v2 (lineage system, emergent tiers, magic split).
 
-**Next task:** F5-verify a long session: 3 starters with 30 food, 1 Forager staffed nets out slightly negative (3 villagers × 1 food/12s = 0.25/s; Forager auto-produces 0.125/s). Hunger should appear when food hits 0, drop when a Forager catches up or you boost. Then **Milestone E** (polish: day/night cycle, audio, notifications, save/load, tutorial) — the big jump — or whichever piece of E you want first.
+**Next task:** Phase 0 — install Godot 4, complete official 3D tutorial, set up Git and GitHub repo.
 
 ---
 
 ## Working With Claude Code — Notes for the Developer
 
-- **Be specific in requests.** "Add a Woodcutter building" is vague. "In `scripts/buildings/woodcutter.gd`, create a building that has a worker slot and produces 1 wood per 10 seconds when staffed" is actionable.
+- **Be specific in requests.** "Add a Woodcutter building" is vague. "Create a building scene `Woodcutter.tscn` in `scenes/buildings/` that follows the lineage data pattern (load level/output from a `.tres` resource), implements click-to-boost, and emits signals via EventBus when production occurs" is actionable.
+- **Reference docs by name.** "Per PLOT_LINEAGES.md, the Forest Edge — Wood lineage starts as a Woodcutter's Lean-to..." gives Claude Code the exact spec.
 - **Use plan mode** for anything touching multiple files or systems.
-- **Commit often.** Every working change. Claude Code can help write commit messages.
-- **When something breaks, share the exact error.** Copy/paste the full Godot console output. Don't paraphrase.
-- **If Claude Code suggests a feature that violates a design pillar, push back.** Reference the pillar by name.
-- **Don't be afraid to say "I don't understand."** Stop and ask for an explanation before continuing.
+- **Commit often.** Every working change.
+- **When something breaks, share the exact error.** Copy/paste full console output.
+- **If Claude Code suggests something that violates a design pillar, push back.** Reference the pillar by name or number.
+- **Don't be afraid to say "I don't understand."** Stop and ask before continuing.
 
 ---
 
-## Glossary (for the developer's reference)
+## Godot Concepts Glossary (for the developer's reference)
 
-- **Scene (Godot):** A reusable bundle of nodes saved as a `.tscn` file. Like a prefab in Unity. The basic unit of game content.
-- **Node:** A single element in a scene (a sprite, a sound, a script container, etc.).
+- **Scene:** A reusable bundle of nodes saved as `.tscn`. Like a prefab. The basic unit of game content.
+- **Node:** A single element in a scene (sprite, sound, script container).
 - **Script:** A `.gd` file attached to a node, giving it behavior.
-- **Signal:** Godot's event system. One node emits a signal; others can listen and respond.
-- **Autoload (singleton):** A scene or script that's always loaded and globally accessible. Used for game-wide state.
-- **Resource (.tres):** Godot's data container. Used here for storing config like building costs.
-- **Vertical slice:** A small but complete cross-section of the game — every core system present, but minimal content. Proves the loop works.
+- **Signal:** Godot's event system. Emit / connect.
+- **Autoload (singleton):** Always-loaded, globally accessible. Used for game-wide state.
+- **Resource (.tres):** Godot's data container. Used here for storing lineage configs, building stats.
+- **Vertical slice:** A small but complete cross-section of the game.
 
 ---
 
-*Last updated: 2026-05-11. Update this file whenever a significant decision or structural change happens.*
+*Last updated: 2026-05-11 (v2 — lineage system).*

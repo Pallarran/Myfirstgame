@@ -2,28 +2,31 @@
 
 > **Status:** Living document. This captures the long-term vision for the full game. It is *not* what we build first. See `VERTICAL_SLICE_PRD.md` for the actual near-term scope.
 >
-> **Last updated:** 2026-05-11
+> **Last updated:** 2026-05-11 (v2 — lineage system + emergent tiers + magic split)
 
 ---
 
 ## 1. Elevator Pitch
 
-A chill medieval city-builder where the player guides a single settlement through five distinct visual tiers — **Camp → Settlement → Town → City → Fortified City** — by balancing convergent resource production chains and tending to a small population of named villagers. No spatial puzzle, no harsh failure states, no tactical combat. The pleasure is in the rhythm: activating the next building, watching the next chain hum into balance, and seeing the settlement visibly bloom around you.
+An **incremental cozy citybuilder** with magical realism, set in a stylized medieval world. The player guides a single settlement from a humble camp into a vibrant magic-touched kingdom by balancing convergent resource production chains, upgrading buildings level by level, and tending to a small population of named villagers.
 
-**Reference game (primary):** Hearth & Hamlet (demo).
+The settlement evolves *organically* — buildings level up in place, then transform into their next-tier form when ready. The five visual stages (Camp → Settlement → Town → City → Fortified City) emerge as natural descriptions of the settlement's current state rather than gated tiers.
+
+**Reference game (primary):** Hearth & Hamlet.
 **Adjacent references:** Foundation, Banished (gentle pacing), Tiny Glade (visual coherence), Against the Storm (settlement growth feel).
+**Magic touchstone:** Studio Ghibli-style folk magic — gentle, benevolent, atmospheric. Never combat.
 
 ---
 
-## 2. Design Pillars
+## 2. Design Pillars (DO NOT VIOLATE)
 
-These are the non-negotiables. Every feature decision is judged against them.
-
-1. **Chill, not stressful.** Failure is recoverable; pressure is gentle; the game never punishes a 10-minute break. Imbalance creates a soft nudge, not a crisis.
-2. **Visual progression as core reward.** The five-tier transformation (camp → fortified city) is the headline feature, not flavor. Every tier-up is a real visual moment.
-3. **Balance over placement.** Players decide *what* to build and *when*. They never decide *where* — every building's location is pre-designed for visual coherence with the terrain.
-4. **Cozy aliveness.** Visible haulers, diegetic audio, named villagers, day/night and seasonal shifts. The settlement should feel lived-in, not abstract.
-5. **Engagement through optimization, not action.** Click-to-boost gathering, convergent production chains, gentle resource pressure. The fun is in tuning the system, not reacting to threats.
+1. **Chill, not stressful.** Failure is recoverable; pressure is gentle; the game never punishes a 10-minute break.
+2. **Incremental progression as core dopamine loop.** Constant small improvements: level-ups, evolutions, new buildings, slowly accumulating crystals. Players should always have something small they're working toward.
+3. **Visual progression as headline reward.** Settlement evolution from camp to kingdom is the big payoff, achieved through dozens of small in-place evolutions, not gated tier jumps.
+4. **Balance over placement.** Players decide *what* to build and *when*. Locations are pre-designed; spatial coherence is guaranteed.
+5. **Cozy aliveness.** Visible haulers, diegetic audio, named villagers, day/night and seasonal shifts.
+6. **Engagement through optimization, not action.** Click-to-boost gathering, convergent production chains, gentle resource pressure. Never reaction-time.
+7. **Magical realism, never high fantasy.** Magic is gentle, slow-acting, benevolent. Folk magic and rare spirits, not wizards, dragons, or combat spells.
 
 ---
 
@@ -31,202 +34,329 @@ These are the non-negotiables. Every feature decision is judged against them.
 
 When a player closes the game after an hour, they should feel:
 
-- **Relaxed** — like they've just done a satisfying creative activity, not a job.
-- **Proud** — of what they built, however small the progress.
-- **Curious** — about what the next tier unlocks, what the next building does, what's around the corner.
-- **Attached** — to specific villagers, specific moments ("the winter Bram saved us by stockpiling firewood").
+- **Relaxed** — like they've just done a satisfying creative activity.
+- **Proud** — of how their settlement has grown.
+- **Curious** — about what the next building evolution unlocks.
+- **Attached** — to specific villagers, specific moments.
+- **Enchanted** — touched by a small wonder (a fae visitor, a spell cast, the grove waking).
 
-**Target session length:** Player-chosen. 20-minute relaxation sessions and 2-hour deep dives should both feel good. Save anytime, autosave every 10 minutes.
+**Target session length:** Player-chosen. 20-minute relaxation sessions and 2-hour deep dives should both feel good.
 
 ---
 
-## 4. Core Loop
+## 4. Core Loops
 
-**The minute-to-minute loop:**
-1. Observe current resource flows (visible in top bar and at each building).
-2. Notice imbalance or surplus.
-3. Activate next building OR adjust worker assignments OR click-to-boost a gathering site.
-4. Watch the chain rebalance, villagers haul goods, the settlement evolve visually.
+### Minute-to-minute
+1. Observe resource flows.
+2. Notice imbalance, surplus, or a building near its next level.
+3. Take a small action: activate a plot, upgrade a building, click-to-boost gathering, reassign workers.
+4. Watch the consequence — level-up animation, new villager arriving, building evolving.
 5. Repeat.
 
-**The session-to-session loop:**
-1. Approach tier-up requirements (population, key buildings, resource stockpiles).
-2. Trigger tier-up — visual celebration, new mechanics unlock.
-3. New buildings appear as available; new villager needs unlock; settlement aesthetic upgrades.
-4. Settle into the new tier's rhythm. Repeat.
+### Session-to-session
+1. Approach a signature evolution moment.
+2. The moment fires — camera swoops, music swells, settlement visibly transforms.
+3. New buildings, policies, or magical capabilities unlock as consequences.
+4. Settle into the new flow.
 
-**End state:** Fortified City tier reached. Game continues as endless sandbox with optional soft "ambitions" (sustain 200 villagers through 10 winters, etc.). No hard win screen.
-
----
-
-## 5. Tier Progression
-
-Five tiers, each a meaningful gameplay gate, not just a graphical change.
-
-| Tier | Unlock Condition (placeholder) | New Mechanics | Visual Identity |
-|------|-------------------------------|----------------|-----------------|
-| **Camp** | Starting state | Basic gathering (wood, food, water). Tents. Assigned workers. | Dirt paths, canvas tents, campfire, trampled grass. |
-| **Settlement** | Pop. 15 + storehouse + 30-day survival | Farming, basic crafting, storage buildings, hauler villagers. | Wooden cabins, fenced gardens, packed-earth roads, woodsmoke. |
-| **Town** | Pop. 50 + processed-goods chain + market | Specialized crafts (smithy, mill, bakery), travelling merchants, comfort needs (ale, cloth). | Timber-framed houses, cobbled paths, market square, banners. |
-| **City** | Pop. 120 + luxury goods + faith building | Faith/culture buildings, luxury production, light combat threat begins. | Stone townhouses, plazas, lamp posts, church bells. |
-| **Fortified City** | Pop. 250 + walls + garrison | Full defensive layer, military buildings, large-scale events. | Stone walls, gates, bastions, manor, paved streets. |
-
-*Exact thresholds will be tuned during development.*
+### End state
+Settlement reaches "Fortified City" descriptive state. Endless sandbox continues with optional soft ambitions. No hard win screen.
 
 ---
 
-## 6. Resource & Economy System
+## 5. Emergent Tier Model
 
-- **~15–18 resources** across three layers:
-  - **Raw:** wood, stone, iron ore, wheat, vegetables, fish, water, wool, herbs
-  - **Processed:** planks, cut stone, iron ingots, flour, bread, ale, cloth, tools, weapons
-  - **Luxury (late tiers):** fine garments, books, decorative goods
-- **Production chains:** mostly convergent (a bakery needs flour + firewood + water), with some branching in late game (iron → tools OR weapons OR decoration).
-- **Worker model:** assigned workers. Click a building → set worker count → they work there permanently until reassigned.
-- **Click-to-boost:** key gathering buildings (woodcutter, quarry, well, fishery) can be clicked by the player to produce a small bonus burst. Light engagement, not required.
-- **Storage:** physical storage buildings with hauler villagers. Resources exist in warehouses; haulers carry sacks across the settlement. (This is a core "cozy aliveness" mechanic.)
-- **Failure mode:** imbalance creates soft consequences (villagers hungry → unhappy → slower work; firewood out in winter → comfort drops). No permanent loss of progress. Recovery is always possible within a few in-game days.
+Tiers are **descriptive labels**, not gates. Five tier names: Camp, Settlement, Town, City, Fortified City.
+
+Current tier is **derived** from the state of signature plots:
+- **Camp:** starting state.
+- **Settlement:** central plot evolved to Communal Hearth.
+- **Town:** central plot evolved to Market Square AND first processing chain operational.
+- **City:** central plot evolved to Civic Plaza AND faith plot at Church.
+- **Fortified City:** defensive perimeter exists AND Manor/Keep present.
+
+Tier label is displayed in UI ("Your settlement: a thriving Town") but no "TIER UP!" modal interrupts play. Evolutions happen continuously and organically; signature ones get celebrated.
 
 ---
 
-## 7. Villagers
+## 6. Plot Lineage System
 
-- **Named individuals with light traits.** Each villager has a name, portrait, age, and 1–2 traits (e.g., "hardy," "skilled woodcutter") that subtly affect their work.
-- **Needs scale with tier:**
+The map contains predetermined **plots**, each tied to a **lineage** — a sequence of building forms across progression. Players activate plots by building; buildings level up in place; when a building reaches a threshold level, it **auto-evolves** to the next form.
+
+### Anatomy of a building
+
+- **Current form** (tier-appropriate identity, e.g., "Mayor's House")
+- **Current level** (1–5 within that form)
+- **Production output** (scales with level)
+- **Visual appearance** (changes meaningfully at each level)
+- **Evolution threshold** (e.g., level 5 of "Chief's House" auto-evolves to "Mayor's House" level 1)
+
+### Anatomy of a plot
+
+- **Fixed location** on the map.
+- **A lineage** it belongs to.
+- **Activation state** (dormant / activatable / built).
+- **Optional dormancy condition** (magical plots stay hazy until conditions are met elsewhere).
+
+### Two-axis progression
+
+1. **In-place levels (incremental):** Player-driven, costs resources. Levels 1 → 5 within current form. Each level brings visible improvement and ~+25% output. This is the *incremental* loop.
+
+2. **Form evolution (transformative):** Auto-triggered at threshold level (typically 5). Building transforms into the next form, returning to level 1 of the new form. These are the dramatic moments.
+
+### Signature evolution moments
+
+Of dozens of evolutions, ~10–15 are "signature moments" — camera focus, music swell, particle flourish, achievement-style notification. Most evolutions happen quietly with just a small chime.
+
+Signature moments include:
+- Campfire → Communal Hearth (first major evolution)
+- Communal Hearth → Market Square (Town begins)
+- Small Chapel → Shrine (faith deepens; magic hints intensify)
+- Whispering Grove → Wise One's Cottage (magic awakens; crystals appear)
+- Chief's House → Mayor's House → Town Hall (governance moments)
+- Shrine → Church (Blessings significantly strengthen)
+- Wise One's Cottage → Mage's Tower (Spells unlock)
+- First defensive wall completion
+- Mage's Tower → Arcane Sanctum (magical capstone)
+- Church → Cathedral (faith capstone, often the visual centerpiece)
+
+---
+
+## 7. The 14 Plot Lineages
+
+See `PLOT_LINEAGES.md` for full details. Summary:
+
+| # | Lineage | Role | Plot count |
+|---|---------|------|------------|
+| 1 | **The Heart** (central plot) | Mood, gathering, civic identity | 1 |
+| 2 | **The Chief's Seat** (governance) | Policies, late-game centerpiece | 1 |
+| 3 | **The Sacred Height** (faith / Blessings) | Faith comfort, area buffs | 1 |
+| 4 | **The Grove** (arcane / crystals) | Magic resource, Spells | 1 |
+| 5 | **Forest Edge — Wood** | Wood → planks → furniture | 1 |
+| 6 | **Forest Edge — Foraging/Hunting** | Food/meat/hides → leather | 1 |
+| 7 | **Stream — Water/Mill/Bath** | Water, flour, hygiene | 1 |
+| 8 | **Fields** | Vegetables, wheat | 2–3 instances |
+| 9 | **Mountain — Stone** | Stone → masonry | 1 |
+| 10 | **Mountain — Iron** | Iron → tools → weapons | 1 |
+| 11 | **Housing** | Population capacity | 5–7 instances |
+| 12 | **Storage** | Resource storage, haulers | 1–2 instances |
+| 13 | **Trade** | Caravan interface | 1 |
+| 14 | **Defense** (perimeter) | Raid protection | Multiple instances |
+
+---
+
+## 8. Magic System
+
+Magic is split into **two separate subsystems**.
+
+### Subsystem A: Blessings (effect-based)
+
+- **Source:** The Sacred Height lineage (Standing Stone → Chapel → Shrine → Church → Cathedral).
+- **Mechanic:** Passive area-of-effect buff emitted while staffed with clergy. Not a resource; not stockpiled.
+- **Effects scale with form:**
+  - Chapel: small mood bonus nearby.
+  - Shrine: mood + occasional minor heal.
+  - Church: settlement-wide mood + faster illness recovery + reduced attacker morale.
+  - Cathedral: powerful settlement-wide package; possible passive crystal generation.
+- **Theme:** communal, ambient, comforting.
+
+### Subsystem B: Crystals + Spells (resource-based)
+
+- **Source:** The Grove lineage (Ancient Stones [dormant] → Whispering Grove [dormant] → Wise One's Cottage → Mage's Tower → Arcane Sanctum).
+- **Resource:** **Magic Crystals** — single type, stockpiled, slowly produced. Visually beautiful, glowing.
+- **Production:**
+  - Wise One's Cottage: 1 crystal per ~5 minutes when staffed and supplied with herbs.
+  - Mage's Tower: faster production, can convert mundane resources (stone + herbs + time) into crystals.
+  - Arcane Sanctum: significant passive production plus possibility of "Wonder" spells.
+- **Crystals as luxury sink:** late-game economies have surplus mundane resources; converting them into crystals provides a meaningful sink.
+
+### Spells
+
+Cast at the Mage's Tower or above via a **Spellbook UI** — a simple menu listing known spells, crystal costs, and effects. Player triggers manually.
+
+Initial catalog (~5–8 total, unlocked progressively):
+- **Verdant Bloom:** Next harvest yields +100%.
+- **Warding:** Next bandit raid significantly weaker, or skipped.
+- **Beacon:** Doubles immigration chance for next month.
+- **Gentle Rain:** Resolves drought event; small mood bonus.
+- **Hearthlight:** All villagers gain mood for one week.
+- **Forge-Fire:** All crafting buildings +200% for one day.
+- **Awakening (late-game):** Triggers a magical creature visitor event.
+- **Long-Sight (late-game):** Reveals upcoming events for next season.
+
+Spells are **rare big moments**, not constant utility.
+
+### Magical creatures and events
+
+- Appear only in late tiers (City onwards).
+- Always benevolent or neutral; never hostile.
+- Examples: fae traveler asking for shelter (rewards with permanent small buff); spirit of the forest visiting when Grove reaches max (boosts forest yields); rare atmospheric sightings.
+
+---
+
+## 9. Resources
+
+**Mundane (~15):**
+- **Raw:** wood, stone, iron ore, coal, wheat, vegetables, fish, water, wool, herbs, hides, meat.
+- **Processed:** planks, cut stone, iron ingots, flour, bread, ale, cloth, tools, weapons, leather, clothing.
+- **Luxury (late game):** fine garments, books, decorative goods, fine furniture.
+
+**Magical:**
+- **Magic Crystals** — single type.
+
+**Soft/effect (not in inventory):**
+- **Blessings** — area buff from faith lineage.
+- **Mood** — per-villager metric.
+- **Comfort** — collective settlement metric.
+
+**Storage:** physical storehouses with hauler villagers. Visible sacks/barrels carried around the settlement.
+
+---
+
+## 10. Villagers
+
+- **Named individuals with light traits.** Name, portrait, age, 1–2 traits.
+- **Needs scale with tier descriptor:**
   - Camp: food, shelter.
   - Settlement: + warmth, water.
-  - Town: + variety in food, ale or comfort goods.
-  - City: + faith/culture, decoration.
-  - Fortified City: + safety, full comfort suite.
-- **Population growth:** primarily births (couples form naturally when housing is available); immigration as a tier-unlocked bonus event.
-- **Lifecycle:** villagers age, eventually die of old age. Children grow up and become workers. Light, narrative — not heavy simulation.
-- **No deep personality system.** No moods, no relationships beyond pairing, no mental breaks. Stay firmly out of Rimworld territory.
+  - Town: + variety in food, ale, Blessings access.
+  - City: + faith/culture, decoration, social spaces.
+  - Fortified City: + safety, full comfort, optional luxuries.
+- **Growth:** primarily births; immigration as event/spell-driven bonus.
+- **Lifecycle:** age, die of old age. Children become workers.
+- **No deep simulation.**
 
 ---
 
-## 8. Combat & Threats
+## 11. Policies
 
-> **Pillar reminder:** Combat is a small addition for realism, NOT a core mechanic. If a design decision pulls combat toward "core," reject it.
+Settlement-wide toggles unlocked progressively as the Chief's Seat lineage evolves. ~10–12 total across the game.
 
-- **Threat sources, scaled by tier:**
-  - Camp/Settlement: wolves (atmospheric, low-stakes, attack livestock at edges).
-  - Town: occasional bandit raids (telegraphed days in advance).
-  - City/Fortified City: rare small warbands (big events, well-warned).
-- **Telegraphed and seasonal.** Always at least a few in-game days' warning. Threats cluster in predictable seasons (wolves in winter, bandits after harvest).
-- **Fully automated combat.** Player builds walls and towers and assigns guards. Combat resolves on its own. An alarm bell rallies guards to a point. No unit-level control.
-- **Consequences:** building damage (repairable), occasional villager injury, very rare death only on deeply neglected defenses. Never devastating.
-- **Defensive buildings as tier rewards:** palisade (Settlement) → stone walls (Town) → gates and bastions (City) → full castle aesthetic (Fortified City).
+- **Settlement (Chief's House):** Rationing, Communal Work.
+- **Town (Mayor's House):** Trade Priority, Apprenticeship, Crop Rotation.
+- **City (Town Hall):** Public Feast Days, Sanitation Laws, Faith Observance.
+- **Fortified City (Manor/Keep):** Standing Army, Open Gates, Royal Patronage.
 
 ---
 
-## 9. Map, World, and Environment
+## 12. Combat & Threats
 
-- **Single handcrafted map.** Identical every playthrough. Every building's location is pre-designed by the developer.
-- **The player never places buildings.** Available plots light up as buildable; player chooses what to activate. Spatial coherence is guaranteed by design.
-- **Tier-gated areas:** parts of the map are visually inactive (overgrown, wild) until the relevant tier unlocks, then become available with their predetermined plots revealed.
-- **Terrain matters mechanically:** forests give wood, water enables fishing/mills, mountains have stone/ore, fertile patches grow better crops. But terrain interacts with predetermined plots, not free placement.
-- **Seasons:** spring, summer, autumn, winter, with meaningful gameplay rhythm (planting window, harvest rush, winter food pressure). Visual and audio shifts at each.
-- **Weather events:** rare and gentle (one harsh winter every several years, occasional storm). Variety, not punishment.
-- **Outside world:** travelling merchants unlock at Town tier — caravans visit periodically, buy surplus, sell rare goods. No diplomacy, no off-map politics.
-- **Post-launch expansions:** additional handcrafted maps with distinct biomes (coastal, highland, etc.). Launch with one polished map.
+- **Scaled with settlement state:** wolves early → bandit raids mid → small warbands late.
+- **Always telegraphed and seasonal.**
+- **Fully automated combat.** Build defenses, assign guards, ring alarm.
+- **Recoverable consequences.**
+- **Defense is one of the 14 lineages.**
+- **Spells like Warding** offer magical alternatives.
 
 ---
 
-## 10. Art & Audio Direction
+## 13. Map & World
+
+- **Single handcrafted map**, identical every playthrough.
+- **All plots pre-designed.** Players activate, never place.
+- **Plots evolve in-place** through their lineage.
+- **Tier-locked plots visible but dormant** early — overgrown, hazy, with subtle hints (ancient stones, peculiar grove).
+- **Fixed geographic features:** central clearing, stream, forest edges, mountain access, fertile patches, high ground (faith), magical grove/stones (arcane), caravan entry road.
+- **Seasons:** spring, summer, autumn, winter with mechanical rhythm.
+- **Weather:** rare and gentle.
+- **Outside world:** travelling merchants when Trade lineage activates.
+- **Post-launch:** additional handcrafted maps with distinct biomes.
+
+---
+
+## 14. Art & Audio Direction
 
 ### Visual
 
-- **Stylized low-poly 3D**, warm storybook palette. Hearth & Hamlet aesthetic.
-- **Rotatable fixed-angle camera with zoom.** Diorama feel.
-- **Tier visual progression** hits five layers simultaneously: building models, road surfaces, decoration density, ground textures, lighting richness.
-- **Day/night cycle** with warm interior lighting at night (firelight, candles, lamps progressing by tier).
-- **Asset strategy:** placeholder art from Kenney.nl, Quaternius, Synty Studios during development. Commission custom art for signature buildings and tier-transition moments only.
+- **Stylized low-poly 3D**, warm storybook palette.
+- **Rotatable fixed-angle camera with zoom.**
+- **Each building has 5 visual levels within each form.** Significant work, but the headline reward.
+- **Day/night cycle** with warm interior lighting.
+- **Asset strategy:** Kenney.nl, Quaternius, Synty placeholders during development. Custom art for signature evolution moments and visual capstones.
+- **Magic crystals** get distinct visual personality — soft glow, animated facets, colored light.
 
 ### Audio
 
-- **Layered adaptive music**, acoustic folk palette evolving toward choral/full medieval ensemble in higher tiers.
-- **Tier transitions** get a real musical "moment" — short cue with visual celebration.
-- **Heavy diegetic audio investment:** chopping wood, hammers, sheep, market chatter, church bells, wind in trees, hauler footsteps. Positional. This is the cheapest immersion lever.
-- **Day/night and seasonal audio shifts:** crickets at night, rain in autumn, muffled snow audio in winter, birdsong in spring.
-- **Feedback sounds:** building completion chime, gentle resource-shortage warning, satisfying click-to-boost.
+- **Layered adaptive music**, acoustic folk evolving toward choral/ensemble at higher tiers. Magical chimes layer in as the Grove awakens.
+- **Signature evolutions get bespoke musical cues.**
+- **Heavy diegetic audio.** Positional.
+- **Magical audio:** crystal chimes, Grove whispers, Spells have signature sounds.
 
 ---
 
-## 11. UI & UX
+## 15. UI & UX
 
-- **Tutorial:** embedded campaign-style through Camp tier. Tooltips + searchable in-game codex thereafter.
-- **Information density:** moderate (H&H level). Resource counters visible; click-for-detail on everything. Optional advanced view for production rates (post-launch consideration).
+- **Tutorial:** embedded through Camp tier. Tooltips + searchable codex thereafter.
+- **Information density:** moderate (H&H level).
 - **Persistent UI:**
-  - Top bar: resource counters, current tier badge, tier progress, date/season.
-  - Side: collapsible build menu, notification feed.
-  - Camera shortcuts: jump-to-notification, recenter, jump-to-tier-up.
-- **Notifications:** gentle (soft sound, persistent icon, no flashing red alerts).
-- **Codex:** searchable, auto-unlocks entries as buildings/resources/mechanics are discovered. Critical for players returning after a week away.
-- **Accessibility:** colorblind-friendly palette, scalable text, pause-anywhere, future difficulty toggles ("extra chill" mode post-launch).
+  - Top bar: resources (mundane + crystals), tier descriptor, date/season.
+  - Side: collapsible build menu, notification feed, policy menu (when unlocked).
+  - **Spellbook:** accessed at Mage's Tower or above. Lists known spells with crystal costs and effects.
+  - Camera shortcuts: jump-to-notification, recenter, jump-to-signature-moment.
+- **Notifications:** gentle. Signature evolutions get richer notifications with "view it now" option.
+- **Codex:** searchable, auto-unlocks entries.
+- **Accessibility:** colorblind-friendly, scalable text, pause-anywhere, future "extra chill" toggle.
 
 ---
 
-## 12. Time & Pacing
+## 16. Time & Pacing
 
-- **No game speed controls.** Single flowing pace. Click-to-boost is the only acceleration tool.
-- **Pause anytime** for planning or breaks.
-- **Day/night cycle** runs continuously.
-- **Seasons:** ~roughly equal length, exact duration tuned during development.
-- **Autosave every 10 minutes** + manual save-and-quit anytime + multiple manual save slots.
-
----
-
-## 13. Platforms & Technology
-
-- **Launch platform:** PC, Windows + Linux (Steam Deck verified target), Mac if effectively free given engine choice.
-- **Distribution:** Steam, likely via Early Access.
-- **Engine:** **Godot 4** with GDScript. (Rationale: free, lightweight, excellent docs, friendly to non-coders, capable for stylized 3D, well-supported by Claude Code.)
-- **Localization:** English-only at launch. All strings externalized from day one so additional languages can be added based on traction.
-- **Saves:** local files, multiple slots, Steam Cloud sync.
-- **Achievements:** ~30 at launch, covering tier progressions and milestone moments.
+- **No game speed controls.** Click-to-boost only.
+- **Pause anytime.**
+- **Day/night cycle** continuous.
+- **Seasons:** roughly equal length.
+- **Autosave every 10 minutes** + manual save + multiple slots.
 
 ---
 
-## 14. Explicitly Out of Scope
+## 17. Platforms & Technology
 
-These have been considered and rejected for the foreseeable future:
-
-- **Multiplayer of any kind.** Single-player only. Permanent decision.
-- **Tactical combat / unit control.** Combat stays automated.
-- **Free building placement.** Spatial coherence comes from predetermined plots.
-- **Procedural maps at launch.** One handcrafted map; additional maps as post-launch content.
-- **Deep villager psychology** (moods, relationships, mental breaks).
-- **Mod support at launch.** Possible post-launch consideration.
-- **Mobile or web platforms.**
-- **Switch port.** Stretch goal post-launch via publisher relationship.
-- **Cathedral-builder / megastructure gameplay** beyond the Fortified City tier aesthetic.
+- **Launch:** PC, Windows + Linux, Mac if free.
+- **Distribution:** Steam, likely Early Access.
+- **Engine:** **Godot 4** with GDScript.
+- **Localization:** English-only at launch; architecture supports localization day one.
+- **Saves:** local + Steam Cloud.
+- **Achievements:** ~30 at launch.
 
 ---
 
-## 15. Open Questions
+## 18. Explicitly Out of Scope
 
-To be resolved during development:
-
-- Exact tier-up thresholds and pacing curve.
-- Specific list of comfort needs per tier and how they're satisfied.
-- Tuning of click-to-boost (cooldown? per-building limit? bonus magnitude?).
-- Trader caravan economy balance.
-- Whether seasons have variable length or are fixed.
-- Music budget — commissioned composer vs. royalty-free library.
-- Decision point on Mac support (depends on Godot export effort).
-
----
-
-## 16. Success Criteria
-
-This game succeeds if:
-
-- A player can sit down with no instructions, follow the Camp tier tutorial, and reach Settlement tier without confusion.
-- Players play in 20-minute sessions *and* in 2-hour sessions and both feel right.
-- Reviews use the words "cozy," "chill," "satisfying," "beautiful."
-- Players post screenshots of their settlements at different tiers.
-- The Steam page wishlist count grows steadily during Early Access without requiring marketing spend, indicating organic word-of-mouth.
+- Multiplayer (permanent).
+- Tactical / player-controlled combat.
+- Combat magic.
+- Free building placement.
+- Procedural maps at launch.
+- Deep villager psychology.
+- Mod support at launch.
+- Mobile or web.
+- Switch port at launch.
+- Megastructure gameplay beyond Cathedral/Manor/Sanctum.
+- High fantasy elements (dragons, monsters, hostile creatures).
+- Player-controlled wizards.
 
 ---
 
-*This document is the north star, not the spec. Refer to `VERTICAL_SLICE_PRD.md` for what to actually build first.*
+## 19. Open Questions
+
+- Exact level thresholds for auto-evolution per lineage.
+- Crystal production rates and spell costs (significant tuning needed).
+- Whether Spellbook is tied to one building or accessible from anywhere once unlocked.
+- Magical creature event design and frequency.
+- Whether Blessings and Crystals ever interact (e.g., Cathedral generating crystals passively).
+- Number of housing plot instances on the map.
+- Whether Storage capacity is per-plot or global.
+
+---
+
+## 20. Success Criteria
+
+- Reviews use "cozy," "chill," "incremental," "satisfying," "magical."
+- Players post screenshots of their settlements at different evolutionary states.
+- "I just want to upgrade one more building" is a sentiment players express.
+- Signature evolution moments are noticed and remarked on, not skipped.
+- Steam wishlist grows organically during Early Access.
+
+---
+
+*This document is the north star. See `VERTICAL_SLICE_PRD.md` for what to build first and `PLOT_LINEAGES.md` for full building catalog.*

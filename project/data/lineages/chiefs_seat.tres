@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Lineage" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/lineage.gd" id="1_lineage"]
+[ext_resource type="Resource" path="res://data/forms/elders_tent.tres" id="2_elder"]
+
+[resource]
+script = ExtResource("1_lineage")
+lineage_id = "chiefs_seat"
+display_name = "The Chief's Seat"
+role = "Governance and policy unlocks. Cosmetic-only in slice 1; policies arrive with Chief's House (form 2)."
+forms = Array[Resource]([ExtResource("2_elder")])

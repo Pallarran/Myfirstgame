@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Lineage" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/lineage.gd" id="1_lineage"]
+[ext_resource type="Resource" path="res://data/forms/forager_hut.tres" id="2_hut"]
+
+[resource]
+script = ExtResource("1_lineage")
+lineage_id = "forest_forage"
+display_name = "Forest Edge — Forage/Hunt"
+role = "Food and (later) meat/hides production. Evolves into Cabin, Hunter's Lodge, etc."
+forms = Array[Resource]([ExtResource("2_hut")])

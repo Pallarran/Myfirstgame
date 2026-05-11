@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Form" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/form.gd" id="1_form"]
+
+[resource]
+script = ExtResource("1_form")
+display_name = "Campfire"
+building_scene_path = "res://scenes/buildings/campfire.tscn"
+camouflage_scene_path = "res://scenes/buildings/campfire_camouflage.tscn"
+wood_cost = 0
+level_up_costs = Array[int]([5, 10, 15, 20])
+level_output_multipliers = Array[float]([1.0, 1.25, 1.5, 1.75, 2.0])
+housing_provided = 3
+attracts_villager = false
+max_workers = 0
+produces = "none"
+production_amount = 0
+production_interval = 8.0
