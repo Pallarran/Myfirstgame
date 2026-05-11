@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/villager.gd" id="1_villager"]
 [ext_resource type="PackedScene" path="res://assets/models/kenney_blocky-characters_20/Models/GLB format/character-a.glb" id="2_char_model"]
+
+[sub_resource type="CapsuleShape3D" id="Cap_click"]
+radius = 0.55
+height = 2.0
 
 [node name="Villager" type="Node3D"]
 script = ExtResource("1_villager")
 
 [node name="Model" parent="." instance=ExtResource("2_char_model")]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0)
+
+[node name="ClickArea" type="Area3D" parent="."]
+input_ray_pickable = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("Cap_click")

@@ -5,12 +5,21 @@
 # walks there, pauses, picks another. Good enough for "the camp feels
 # alive" until real jobs land in Milestone D.
 #
-# Set `villager_name` before adding the villager to the scene tree. It's
-# kept on the node for use by the info-card chunk later — no floating
-# label above the head (visual noise at scale, per design feedback).
+# Set `villager_name`, `villager_age`, `villager_trait`, `villager_job`
+# before adding the villager to the scene tree (world.gd does this when
+# spawning). These surface in the info card on click. No floating label
+# above the head — identity is click-driven only.
+#
+# Click handling lives on the ClickArea (Area3D) child. The villager
+# emits `clicked(self)` so world.gd can open the info card.
 extends Node3D
 
+signal clicked(villager: Node3D)
+
 @export var villager_name: String = "Unknown"
+@export var villager_age: int = 25
+@export var villager_trait: String = "Hardy"
+@export var villager_job: String = "Idle"
 @export var walk_speed: float = 1.5
 @export var wander_radius: float = 10.0
 
@@ -26,6 +35,12 @@ var _spawn_origin: Vector3
 func _ready() -> void:
 	_spawn_origin = position
 	_pick_new_target()
+	var area: Area3D = $ClickArea
+	area.input_event.connect(_on_area_input)
+
+func _on_area_input(_camera: Node, event: InputEvent, _pos: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		clicked.emit(self)
 
 func _process(delta: float) -> void:
 	if _pause_remaining > 0.0:

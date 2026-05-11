@@ -113,9 +113,9 @@ To export a Windows build: see `README.md` (TBD).
 
 **Current milestone:** Milestone C — Villagers (per VERTICAL_SLICE_PRD.md).
 
-**Most recent task:** Chunks C-1 + C-2 landed (2026-05-11). Three starter villagers (Bram/Edda/Cuth) spawn near the campfire and wander. Placeholder primitives replaced with Kenney models at **7x scale** (nature-kit/survival-kit) — villager Model rotated 180° around Y so its visible front aligns with Godot's -Z forward. Building a Tent now calls `GameState.add_housing(TENT_HOUSING)` and `_spawn_immigrant_near(building.position)`, drawing a name from a shuffled pool (`Wynn, Hild, Osric, Aelfric, Bernic, Cynric, Drogo, Eadwig`). Floating name labels removed per design feedback.
+**Most recent task:** Chunk C-3 landed (2026-05-11). Each villager now carries `villager_name`, `villager_age` (16-55 random), `villager_trait` (random from Hardy/Quick/Patient/Cheerful/Skilled/Stout/Keen), `villager_job` ("Idle" until Milestone D adds worker buildings). Villagers have an Area3D ClickArea; clicking emits `clicked(self)` which world.gd routes to a new `VillagerInfoCard` modal (`ui/villager_info_card.tscn` + `scripts/villager_info_card.gd`). Card shows name as title plus the four fields, closes via button or Esc. Traits + job are cosmetic for now — mechanical effects come later.
 
-**Next task:** F5-verify building a Tent bumps Pop max to 5 and a 4th villager appears near the new tent. Build all 3 tents → Pop reaches 6 / 7 (capped at hard cap 8). Then chunk C-3: click-a-villager info card.
+**Next task:** F5-verify clicking any villager (starter or immigrant) opens the info card with their data. Esc/Close button dismisses. Milestone C is then complete; Milestone D (Woodcutter + Forager + worker assignment + click-to-boost + food consumption) is the next big chunk.
 
 ---
 

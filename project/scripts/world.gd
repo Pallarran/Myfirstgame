@@ -30,9 +30,19 @@ const IMMIGRANT_NAMES: Array = [
 	"Wynn", "Hild", "Osric", "Aelfric", "Bernic", "Cynric", "Drogo", "Eadwig",
 ]
 
+# Traits are cosmetic in this slice — they appear on the info card but
+# don't yet affect mechanics. Hooks for trait-driven behavior (faster
+# work, hunger resistance, etc.) come in later milestones.
+const TRAITS: Array = [
+	"Hardy", "Quick", "Patient", "Cheerful", "Skilled", "Stout", "Keen",
+]
+
+const AGE_RANGE: Vector2i = Vector2i(16, 55)
+
 @onready var _plots_root: Node3D = $BuildPlots
 @onready var _villagers_root: Node3D = $Villagers
 @onready var _build_menu: Control = $HUD/BuildMenu
+@onready var _info_card: Control = $HUD/VillagerInfoCard
 
 var _immigrant_pool: Array = []
 
@@ -50,7 +60,14 @@ func _spawn_villager(villager_name: String, spawn_position: Vector3) -> void:
 	var villager: Node3D = VILLAGER_SCENE.instantiate()
 	villager.position = spawn_position
 	villager.villager_name = villager_name
+	villager.villager_age = randi_range(AGE_RANGE.x, AGE_RANGE.y)
+	villager.villager_trait = TRAITS.pick_random()
+	villager.villager_job = "Idle"
+	villager.clicked.connect(_on_villager_clicked)
 	_villagers_root.add_child(villager)
+
+func _on_villager_clicked(villager: Node3D) -> void:
+	_info_card.open_for(villager)
 
 func _spawn_immigrant_near(target_position: Vector3) -> void:
 	if not GameState.add_villager():
